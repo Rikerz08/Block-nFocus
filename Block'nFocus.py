@@ -11,14 +11,22 @@ while True:
     if toBlock == "exit":
         break;
 
-    webLists.append("127.0.0.1 " + toBlock)
+    webLists.append(toBlock)
 
 #opening the file using append + read mode
-with open (hostspath, 'a') as f:
-    f.write("\n")
-    f.write('\n'.join(webLists))
+with open (hostspath, 'a+') as f:
+    f.seek(0)
+    fileContent = f.read()
+    #code to avoid duplication
+    for web in webLists:
+        if web in fileContent:
+            print(web + " is already listed.")
+            pass
+        else:
+            f.write("\n")
+            f.write("127.0.0.1 " + web)
 
 with open (hostspath, 'r') as f:
     print(f.read())
-    
+
     
