@@ -1,5 +1,12 @@
-# storing absolute directory of hosts file to a path var
-hostspath = "C:\Windows\System32\drivers\etc\hosts"
+import os
+
+# hosts path for windows (uncomment the code according to your system)
+hostsPath = "C:\Windows\System32\drivers\etc\hosts"
+
+# #hosts path for linux/mac (uncomment the code according to your system)
+# hostspath = "/etc/hosts"
+
+localRedirect = "127.0.0.1"
 
 #list for websites
 webLists = [];
@@ -14,7 +21,7 @@ while True:
     webLists.append(toBlock)
 
 #opening the file using append + read mode
-with open (hostspath, 'a+') as f:
+with open (hostsPath, 'a+') as f:
     f.seek(0)
     fileContent = f.read()
     #code to avoid duplication
@@ -24,9 +31,18 @@ with open (hostspath, 'a+') as f:
             pass
         else:
             f.write("\n")
-            f.write("127.0.0.1 " + web)
+            f.write(localRedirect + " " + web)
 
-with open (hostspath, 'r') as f:
+print("Proceeding will exit all browsers. Unsaved progress will be lost.")
+killDecision = input("Do you wish to proceed or exit browsers manually? (Y/N) ")
+
+if killDecision == "Y":
+    os.system("taskkill /im firefox.exe /f")
+    os.system("taskkill /im chrome.exe /f")
+    os.system("taskkill /im opera.exe /f")
+    os.system("taskkill /im msedge.exe /f")
+
+
+with open (hostsPath, 'r') as f:
     print(f.read())
-
     
