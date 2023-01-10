@@ -36,7 +36,7 @@ with open (hostsPath, 'a+') as f:
 print("Proceeding will exit all browsers. Unsaved progress will be lost.")
 killDecision = input("Do you wish to proceed or exit browsers manually? (Y/N) ")
 
-if killDecision == "Y":
+if killDecision.upper() == "Y":
     os.system("taskkill /im firefox.exe /f")
     os.system("taskkill /im chrome.exe /f")
     os.system("taskkill /im opera.exe /f")
