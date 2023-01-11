@@ -1,3 +1,4 @@
+import datetime
 import os
 
 # hosts path for windows (uncomment the code according to your system)
@@ -19,6 +20,18 @@ while True:
         break;
 
     webLists.append(toBlock)
+    
+# ask user for time interval in minutes to block the websites 
+while True:
+    try:
+        interval = int(input("Enter the time interval in minutes to block the websites: "))
+        break
+    except ValueError:
+        print("Invalid input. Enter a valid time interval in minutes.")
+
+# get the current time and add the time interval to it
+current_time = datetime.datetime.now()
+unblock_time = current_time + datetime.timedelta(minutes=interval)
 
 #opening the file using append + read mode
 with open (hostsPath, 'a+') as f:
