@@ -1,7 +1,16 @@
 import datetime
 import os
+import tkinter
+import customtkinter
+
 # hosts path for windows (uncomment the code according to your system)
 hostsPath = "C:\Windows\System32\drivers\etc\hosts"
+
+customtkinter.set_appearance_mode("dark")  # Modes: "System" (standard), "Dark", "Light"
+customtkinter.set_default_color_theme("blue")
+
+root = customtkinter.CTk()
+root.geometry("500x300")
 
 # #hosts path for linux/mac (uncomment the code according to your system)
 # hostspath = "/etc/hosts"
@@ -65,15 +74,15 @@ def webBlock():
         if running == False:
             print("unblock sites")
             with open (hostsPath, 'r+') as f:
-                lines = hostsPath.readlines()
-                hostsPath.seek(0)
+                lines = f.readlines()
+                f.seek(0)
                 for line in lines:
                     #statement to know if there are no words in the line that belong to the weblists, 
                     # because if there are none found, the line would be written back to the hostfile, and not removed
                     if not any(web in line for web in webLists):
-                        hostsPath.write(line)
+                        f.write(line)
                 #cuts of all lines that were not written in line 72
-                hostsPath.truncate()
+                f.truncate()
             break
 
 #main function
