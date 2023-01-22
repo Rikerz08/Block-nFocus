@@ -7,12 +7,12 @@ hostsPath = "C:\Windows\System32\drivers\etc\hosts"
 # #hosts path for linux/mac (uncomment the code according to your system)
 # hostspath = "/etc/hosts"
 
+#localhost
 localRedirect = "127.0.0.1"
 
 #list for websites
 webLists = [];
 
-#this is done out of the function so that their values won't restart time value once time.sleep is done on the main func.
 #ask user for time interval in minutes to block the websites 
 while True:
     try:
@@ -21,18 +21,20 @@ while True:
     except ValueError:
         print("Invalid input. Enter a valid time interval in minutes.")
 
+#initialization of start and end time are done outside of funtion so that their values will not be altered in each sleep iteration
 start_time = datetime.datetime.now()
-current_time = ""
-# how many minutes from the current time is the end time
 unblock_time = start_time + datetime.timedelta(minutes=interval)
+#current time initialization just for global purpose
+current_time = ""
 
-#This is just a variable to make sure that the function of inputting a list again does not go back while waiting for time
+#This is just a variable to make sure that the function of inputting a list again does not go back while waiting for time to unblock
 doneInputting = False;
 
 def webBlock():
 
         while True:
             global doneInputting
+            global unblock_time
             current_time = datetime.datetime.now()
             if current_time < unblock_time and doneInputting == False:
                 pass
@@ -48,7 +50,7 @@ def webBlock():
                 #While True loop for overall --
                 while True:
                     doneInputting = True;
-                    print("block sites @ ", current_time)
+                    print("block sites")
                     #opening the file using append + read mode
                     with open (hostsPath, 'a+') as f:
                         f.seek(0)
@@ -70,10 +72,16 @@ def webBlock():
                         os.system("taskkill /im chrome.exe /f")
                         os.system("taskkill /im opera.exe /f")
                         os.system("taskkill /im msedge.exe /f") 
+                    #upon the very moment of killing the browsers, we need a new current time var to be subtracted by the start time var
+                    #and we need to add it to the unblock time var to make up for the time that was taken while the user was still inputting data
+                    inputTime = datetime.datetime.now() - start_time
+                    #we need to update unblock time to make up for the time taken by user while inputting
+                    unblock_time += inputTime
                     break
- 
+
+                
             elif current_time < unblock_time and doneInputting == True:
-                print("Blocking time is still on. (prints every 10 secs)")
+                print("Blocking time is still on. (prints every 10 secs)   ", current_time)
             elif current_time >= unblock_time and doneInputting == True:
                 print("BLOCK TIME PASSED. ALL SITES UNBLOCKED.")
                 with open (hostsPath, 'r+') as f:
@@ -85,30 +93,13 @@ def webBlock():
                         if not any(web in line for web in webLists):
                             f.write(line)
                     #cuts of all lines that were not written in line 72
-                    f.truncate()
+                    f.truncate()   
                 break
             time.sleep(10)
 
-
-        # else:
-        #     print("unblock sites")
-        #     with open (hostsPath, 'r+') as f:
-        #         lines = f.readlines()
-        #         f.seek(0)
-        #         for line in lines:
-        #             #statement to know if there are no words in the line that belong to the weblists, 
-        #             # because if there are none found, the line would be written back to the hostfile, and not removed
-        #             if not any(web in line for web in webLists):
-        #                 f.write(line)
-        #         #cuts of all lines that were not written in line 72
-        #         f.truncate()
-        #     break
-        # time.sleep(10)
-
-
 #main function
 if __name__ == "__main__":
-    print(start_time)
     webBlock()
-
+    print("start time: ", start_time)
+    print("end time: ", unblock_time)
         
