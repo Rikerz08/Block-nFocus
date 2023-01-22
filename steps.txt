@@ -1,7 +1,8 @@
 DONE 1.) Understand how website blocking works using the hosts file without the use of code 
 DONE 2.) Find a way to code the functionality of adding a list of websites to be blocked by hosts
 2.a) input validation for sites
-3.) Find a way to have the code run on a user-set time
-3.b) Find a way to remove added websites from hosts file after set time
+DONE3.) Find a way to have the code run on a user-set time
+DONE3.b) Find a way to remove added websites from hosts file after set time
+3.c) NEED NATIN TO COPY THE CURRENT CONTENT OF HOSTS FILE BEFORE RUNNING THE CODE, AND THEN REMOVE EVERY CODE THAT WAS NOT IN THAT COPY.
 4.) Find a way to integrate a simple database for the list of website
 5.) Create a UI and integrate the application

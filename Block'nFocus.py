@@ -62,6 +62,38 @@ def webBlock():
                     f.write("\n")
                     f.write(localRedirect + " " + web)
 
+        # #this block of code is for the saving of lists          
+        # print("WEBLISTS: ", webLists)
+        # webStore = list(dict.fromkeys(webLists))
+        # print("WEBSTORES: ", webStore)
+        # with open ("webstores.txt", "a+") as f:
+        #     f.seek(0)
+        #     f.writelines(' '.join(webStore))
+        #     f.write("\n")
+        #     print(f.read())
+
+        #another list for retrieving
+        webRetrieve = [];
+        #this block of code is for retrieving
+        with open ("webstores.txt", "r") as f:
+            f.seek(0);
+            lines = f.readlines()
+            for line in lines:
+                for word in line.split():
+                    webRetrieve.append(word)
+        with open (hostsPath, "a+") as f:
+            f.seek(0)
+            fileContent = f.read()
+            #code to avoid duplication
+            for web in webRetrieve:
+                if web in fileContent:
+                    print(web + " is already listed.")
+                    pass
+                else:
+                    f.write("\n")
+                    f.write(localRedirect + " " + web)
+
+
         print("Proceeding will exit all browsers. Unsaved progress will be lost.")
         killDecision = input("Do you wish to proceed or exit browsers manually? (Y/N) ")
 

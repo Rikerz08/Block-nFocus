@@ -2,7 +2,6 @@ import os
 import tkinter
 import customtkinter
 
-
 #setting theme, window, and mode for GUI
 customtkinter.set_appearance_mode("dark")  # Modes: "System" (standard), "Dark", "Light"
 customtkinter.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"
@@ -37,6 +36,8 @@ def dec(a):
     
 
 number_of_inputs = 1
+
+
 
 
 def WebReg():
@@ -99,9 +100,6 @@ def exit(a):
     #     os.system("taskkill /im opera.exe /f")
     #     os.system("taskkill /im msedge.exe /f")
      
-
-
-
 def verify(a):
     oldtab = a
     newwin = customtkinter.CTkToplevel()
