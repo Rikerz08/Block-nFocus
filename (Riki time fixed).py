@@ -42,8 +42,13 @@ def webBlock():
                 while True:
                     toBlock = input("Type in the website url to block. EX.(www.google.com): ")
 
-                    if toBlock != "exit":
+                    #append also a version without "www." and vice versa
+                    if toBlock != "exit" and "www." in toBlock:
                         webLists.append(toBlock)
+                        webLists.append(toBlock.replace("www.",""))
+                    elif toBlock != 'exit' and "www." not in toBlock:
+                        webLists.append(toBlock)
+                        webLists.append("www." + toBlock)
                     else: 
                         break
 
