@@ -1,16 +1,6 @@
 from tkinter import *
 from PIL import Image
 from Dashboard import *
-# Create object 
-# root = Tk()
-  
-# # Adjust size 
-# root.geometry("800x500")
-
-# root.resizable(False, False)
-#commands
-
-#images
 
 
 def Warning_Start(root):
@@ -37,20 +27,17 @@ def call():
   # Adjust size 
     root.geometry("800x500")
     root.resizable(False, False)
+    root.title("Block'nFocus")
     global bg
     global click_btn
     global warning
     global understood
-    global Dashboard_bg
-    global Block
-    global Unblock
+
     bg = PhotoImage(file = "images/index.png")
     click_btn= PhotoImage(file='images/Start button.png')
     warning = PhotoImage(file='images/Warning 2.png')
     understood = PhotoImage(file='images/Understood.png')
-    Dashboard_bg = PhotoImage(file='images/Dashboard.png')
-    Block = PhotoImage(file='images/Block.png')
-    Unblock = PhotoImage(file='images/Unblock.png')
+
 
     index(root)
     root.mainloop()

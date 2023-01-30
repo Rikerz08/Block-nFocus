@@ -11,17 +11,11 @@ def Dashboard():
     root = Tk()
     root.geometry("800x500")
     root.resizable(False, False)
-    global bg
-    global click_btn
-    global warning
-    global understood
+    root.title("Block'nFocus")
     global Dashboard_bg
     global Block
     global Unblock
-    bg = PhotoImage(file = "images/index.png")
-    click_btn= PhotoImage(file='images/Start button.png')
-    warning = PhotoImage(file='images/Warning 2.png')
-    understood = PhotoImage(file='images/Understood.png')
+
     Dashboard_bg = PhotoImage(file='images/Dashboard.png')
     Block = PhotoImage(file='images/Block.png')
     Unblock = PhotoImage(file='images/Unblock.png')
