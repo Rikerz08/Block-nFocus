@@ -69,6 +69,19 @@ def webBlock():
                                 f.write("\n")
                                 f.write(localRedirect + " " + web)
 
+                    # #this block of code is for the saving of lists          
+                    print("WEBLISTS: ", webLists)
+                    #dict is used to remove the commas that separates the elements from Weblists
+                    #list() is used to turn the separated elements into a list
+                    webStore = list(dict.fromkeys(webLists))
+                    print("WEBSTORES: ", webStore)
+                    #this opens a webstores file to store the inputted websites so that they will be made as a preset.
+                    with open ("webstores.txt", "a+") as f:
+                        f.seek(0)
+                        f.writelines(' '.join(webStore))
+                        f.write("\n")
+                        print(f.read())            
+
                     print("Proceeding will exit all browsers. Unsaved progress will be lost.")
                     killDecision = input("Do you wish to proceed or exit browsers manually? (Y/N) ")
 
