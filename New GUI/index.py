@@ -20,7 +20,7 @@ def Warning_Start():
     label2 = Label(newwin, image= warning)
     label2.place(x = 0, y = 0)
     
-    button= Button(newwin, image=understood,command=lambda:([newwin.destroy(), Dashboard_start]),borderwidth=0)
+    button= Button(newwin, image=understood,command=Dashboard_start,borderwidth=0)
     button.grid(column=1, row=1, padx=311, pady=142)
     
    
