@@ -1,93 +1,83 @@
 from tkinter import *
 from PIL import Image
-  
-# Create object 
-root = Tk()
-  
-# Adjust size 
-root.geometry("800x500")
-
-root.resizable(False, False)
-#commands
+from Dashboard import *
 
 
-    
-def Warning_Start():
+#----------- Warning window
+def Warning_Start(root):
     newwin = Toplevel()
     newwin.geometry("800x200")
     newwin.resizable(False, False)
+    
+    #making the window always pop up at the center of the screen
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+    
+    x = (screen_width / 2) - (800 / 2)
+    y = (screen_height / 2 ) - (200 / 2)
+    
+    newwin.geometry(f'800x200+{int(x)}+{int(y)}')
 
+    #placing the bg image by using label
     label2 = Label(newwin, image= warning)
     label2.place(x = 0, y = 0)
     
-    button= Button(newwin, image=understood,command=Dashboard_start,borderwidth=0)
+    #creating the Understand button
+    button= Button(newwin, image=understood, command=lambda:[change(root)],borderwidth=0)
     button.grid(column=1, row=1, padx=311, pady=142)
     
    
     newwin.mainloop()
+    
+  
+#switch window
+def change(root):
+    root.destroy()
+    Dashboard()
+    
+#Making windows dimensions
+def call():
+    root = Tk()
+  # Adjust size 
+    root.geometry("800x500")
+    root.resizable(False, False)
+    root.title("Block'nFocus")
+    
+    #making the window always pop up at the center of the screen
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+
+    x = (screen_width / 2) - (800 / 2)
+    y = (screen_height / 2 ) - (500 / 2)
+
+    root.geometry(f'800x500+{int(x)}+{int(y)}')
+    
+    #global variables to make it accessible
+    global bg
+    global click_btn
+    global warning
+    global understood
+
+    bg = PhotoImage(file = "images/index.png")
+    click_btn= PhotoImage(file='images/Start button.png')
+    warning = PhotoImage(file='images/Warning 2.png')
+    understood = PhotoImage(file='images/Understood.png')
 
 
-def Dashboard_start():
-    newwin = Toplevel()
-    newwin.geometry("800x500")
-    newwin.resizable(False, False)
-    label3 = Label(newwin, image= Dashboard_bg)
-    label3.place(x = 0, y = 0)
+    index(root)
+    root.mainloop()
+
+#running the index screen
+def index(root):
+    label1 = Label(root, image = bg)
+    label1.place(x = 0, y = 0)
+
+    text= Label(root, text= "")
+    text.grid(column=0,row=0)
+
+    #Let us create a dummy button and pass the image
+    button= Button(root, image=click_btn,command=lambda:[Warning_Start(root)],borderwidth=0)
+    button.grid(column=1, row=1, padx=460, pady=170)
     
     
-    button= Button(newwin, image=Block,command=Warning_Start ,borderwidth=0, bg="#FDFCDC")
-    # button.grid(column=1, row=1, padx=120, pady=50, rowspan=50)
-    button.place(x = 200, y = 135)
-    
-    button2= Button(newwin, image=Unblock,command=Warning_Start ,borderwidth=0, bg="#FDFCDC")
-    button2.place(x=128,y=257)
-    
-    newwin.mainloop()
-    
-
-    
-    
-
-
-    
-    
-#images
-bg = PhotoImage(file = "images/index.png")
-click_btn= PhotoImage(file='images/Start button.png')
-warning = PhotoImage(file='images/Warning 2.png')
-understood = PhotoImage(file='images/Understood.png')
-Dashboard_bg = PhotoImage(file='images/Dashboard.png')
-Block = PhotoImage(file='images/Block.png')
-Unblock = PhotoImage(file='images/Unblock.png')
-
-# Add index background
-
-label1 = Label(root, image = bg)
-label1.place(x = 0, y = 0)
-
-
-
-#add button Start
-
-
-text= Label(root, text= "")
-text.grid(column=0,row=0)
-
-#Let us create a dummy button and pass the image
-button= Button(root, image=click_btn,command=Warning_Start,borderwidth=0)
-button.grid(column=1, row=1, padx=460, pady=170)
-
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-# Execute tkinter
-root.mainloop()
+call()
