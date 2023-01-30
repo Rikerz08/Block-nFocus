@@ -7,31 +7,42 @@ from PIL import Image
 # #     Dashboard_start()
     
 
+#Making windows dimensions
 def Dashboard():
     root = Tk()
     root.geometry("800x500")
     root.resizable(False, False)
     root.title("Block'nFocus")
+    
+    #making the window always pop up at the center of the screen
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+
+    x = (screen_width / 2) - (800 / 2)
+    y = (screen_height / 2 ) - (500 / 2)
+
+    root.geometry(f'800x500+{int(x)}+{int(y)}')
+    
+    #global variables to make it accessible
     global Dashboard_bg
     global Block
     global Unblock
 
-    Dashboard_bg = PhotoImage(file='images/Dashboard.png')
+    Dashboard_bg = PhotoImage(file='images/Dashboard 2.png')
     Block = PhotoImage(file='images/Block.png')
     Unblock = PhotoImage(file='images/Unblock.png')
 
     Dashboard_start(root)
     root.mainloop()
 
-
+#running the dashboard screen
 def Dashboard_start(root):
-    # root = Toplevel()
+
     label3 = Label(root, image= Dashboard_bg)
     label3.place(x = 0, y = 0)
-    
+
     
     button= Button(root, image=Block,borderwidth=0, bg="#FDFCDC")
-    # button.grid(column=1, row=1, padx=120, pady=50, rowspan=50)
     button.place(x = 200, y = 135)
     
     button2= Button(root, image=Unblock ,borderwidth=0, bg="#FDFCDC")
