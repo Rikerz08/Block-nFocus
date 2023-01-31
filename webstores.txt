@@ -1,2 +1,1 @@
-
-hello  www.hello  world www.world hehehe www.hehehe
+EXIT www.EXIT
