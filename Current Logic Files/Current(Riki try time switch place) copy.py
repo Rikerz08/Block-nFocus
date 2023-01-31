@@ -20,6 +20,17 @@ unblock_time = datetime.datetime.now() + datetime.timedelta(minutes=525600)
 #current time initialization just for global purpose
 current_time = ""
 
+#Ask if user will create new list or choose list preset
+while True:
+    try: 
+        presetChoice = int(input("Press 1 to create new list. Press 2 to choose presets: "))
+        if presetChoice != 1 and presetChoice != 2:
+            print("Please enter a valid input.")
+        else: 
+            break
+    except ValueError:
+        print("Invalid input. Please enter a number.")
+
 #This is just a variable to make sure that the function of inputting a list again does not go back while waiting for time to unblock
 doneInputting = False;
 
@@ -30,7 +41,7 @@ def webBlock():
             global doneInputting
             global unblock_time
             current_time = datetime.datetime.now()
-            if current_time < unblock_time and doneInputting == False:
+            if current_time < unblock_time and doneInputting == False and presetChoice == 1:
             #ask for input before the while loop occurs
                 while True:
                     toBlock = input("Type in the website url to block. EX.(www.google.com): ")
@@ -102,8 +113,13 @@ def webBlock():
                     #we need to update unblock time to make up for the time taken by user while inputting
                     unblock_time += inputTime
                     break
-
                 
+            #block of code for the choice of looking at presets.
+            elif current_time < unblock_time and doneInputting == False and presetChoice == 2:  
+                print("HAHAHAHA NIGGAS!")  
+
+
+            #block of code just for checking if block time is still on
             elif current_time < unblock_time and doneInputting == True:
                 print("Blocking time is still on. (prints every 10 secs)   ", current_time)
             elif current_time >= unblock_time and doneInputting == True:
