@@ -1,6 +1,6 @@
 from tkinter import *
 from PIL import Image
-
+from pygame import *
 
 # # def change(root):
 # #     root.destroy()

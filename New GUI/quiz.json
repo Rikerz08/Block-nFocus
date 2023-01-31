@@ -1,0 +1,15 @@
+{
+    "ques":[
+        "1.) What is 1+1?",
+        "2.) is the earth round?",
+        "3.) what is 2+3?",
+        "4. why should we gym"
+    ],
+    "options":[
+        ["2", "3","4","5"],
+        ["no","yes","maybe","dont care"],
+        ["dunno","5","11","none of the below"],
+        ["cause why not?","moms spaghetti","fly me to the moon","i dunno"]
+    ],
+    "ans":[1,2,2,1]
+}
