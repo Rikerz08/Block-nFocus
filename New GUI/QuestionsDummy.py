@@ -3,14 +3,30 @@ from tkinter import messagebox as mb
 import json
 
 
-root = Tk()
-root.geometry("800x500")
-root.title("Quiz")
-with open('quiz.json') as f:
-    obj = json.load(f)
-q = (obj['ques'])
-options = (obj['options'])
-a = (obj['ans'])
+def Quiz():
+    global root
+    root = Tk()
+    root.geometry("800x500")
+    root.title("Quiz")
+    with open('quiz.json') as f:
+        obj = json.load(f)
+        
+    global q
+    global options
+    global a
+    q = (obj['ques'])
+    options = (obj['options'])
+    a = (obj['ans'])
+    
+    global Question_bg
+    Question_bg = PhotoImage(file='images/Question.png')
+
+    label3 = Label(root, image= Question_bg)
+    label3.place(x = 0, y = 0)
+    
+    
+    QuizStart()
+    root.mainloop()
 
 class QuizStart:
     def __init__(self):
@@ -23,18 +39,18 @@ class QuizStart:
         self.correct = 0
 
     def question(self, qn):
-        t = Label(root, text="Quiz in Python Programming", width=50, bg="blue", fg="white", font=("times", 20, "bold"))
-        t.place(x=0, y=2)
-        qn = Label(root, text=q[qn], width=60, font=("times", 16, "bold"), anchor="w")
-        qn.place(x=70, y=100)
+        # t = Label(root, text="Quiz in Python Programming", width=50, bg="blue", fg="white", font=("times", 20, "bold"))
+        # t.place(x=0, y=2)
+        qn = Label(root, text=q[qn], width=60, font=("times", 16, "bold"), anchor="w", bg="#FDFCDC")
+        qn.place(x=70, y=115)
         return qn
 
     def radiobtns(self):
         val = 0
         b = []
-        yp = 150
+        yp = 160
         while val < 4:
-            btn = Radiobutton(root, text=" ", variable=self.opt_selected, value=val + 1, font=("times", 14))
+            btn = Radiobutton(root, text=" ", variable=self.opt_selected, value=val + 1, font=("times", 14),bg="#FDFCDC")
             b.append(btn)
             btn.place(x=100, y=yp)
             val += 1
@@ -76,11 +92,10 @@ class QuizStart:
         correct = "No. of correct answers: " + str(self.correct)
         wrong = "No. of wrong answers: " + str(wc)
         mb.showinfo("Result", "\n".join([result, correct, wrong]))
+        
 
 
 
-quiz=QuizStart()
-root.mainloop()
 
 
 

@@ -78,6 +78,5 @@ def index(root):
     #Let us create a dummy button and pass the image
     button= Button(root, image=click_btn,command=lambda:[Warning_Start(root)],borderwidth=0)
     button.grid(column=1, row=1, padx=460, pady=170)
-    
-    
+
 call()

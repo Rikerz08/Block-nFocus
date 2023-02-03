@@ -1,23 +1,32 @@
 from tkinter import *
 from tkinter import messagebox as mb
 import json
-from PIL import Image
 
 
-root = Tk()
-root.geometry("800x500")
-root.title("Quiz")
-with open('quiz.json') as f:
-    obj = json.load(f)
-q = (obj['ques'])
-options = (obj['options'])
-a = (obj['ans'])
+def Quiz():
+    global root
+    root = Tk()
+    root.geometry("800x500")
+    root.title("Quiz")
+    with open('quiz.json') as f:
+        obj = json.load(f)
+        
+    global q
+    global options
+    global a
+    q = (obj['ques'])
+    options = (obj['options'])
+    a = (obj['ans'])
+    
+    global Question_bg
+    Question_bg = PhotoImage(file='images/Question.png')
 
-global Question_bg
-Question_bg = PhotoImage(file='images/Question.png')
-
-label3 = Label(root, image= Question_bg)
-label3.place(x = 0, y = 0)
+    label3 = Label(root, image= Question_bg)
+    label3.place(x = 0, y = 0)
+    
+    
+    QuizStart()
+    root.mainloop()
 
 class QuizStart:
     def __init__(self):
@@ -83,11 +92,10 @@ class QuizStart:
         correct = "No. of correct answers: " + str(self.correct)
         wrong = "No. of wrong answers: " + str(wc)
         mb.showinfo("Result", "\n".join([result, correct, wrong]))
+        
 
 
 
-quiz=QuizStart()
-root.mainloop()
 
 
 
