@@ -19,22 +19,33 @@ unblock_time = datetime.datetime.now() + datetime.timedelta(minutes=525600)
 
 #current time initialization just for global purpose
 current_time = ""
-
-#Ask if user will create new list or choose list preset
-while True:
-    try: 
-        presetChoice = int(input("Press 1 to create new list. Press 2 to choose presets: "))
-        if presetChoice != 1 and presetChoice != 2:
-            print("Please enter a valid input.")
-        else: 
-            break
-    except ValueError:
-        print("Invalid input. Please enter a number.")
+start_time = ""
+# #Ask if user will create new list or choose list preset
+# while True:
+#     try: 
+#         presetChoice = int(input("Press 1 to create new list. Press 2 to choose presets: "))
+#         if presetChoice != 1 and presetChoice != 2:
+#             print("Please enter a valid input.")
+#         else: 
+#             break
+#     except ValueError:
+#         print("Invalid input. Please enter a number.")
 
 #This is just a variable to make sure that the function of inputting a list again does not go back while waiting for time to unblock
 doneInputting = False;
 
 def webBlock():
+
+                #Ask if user will create new list or choose list preset
+        while True:
+            try: 
+                presetChoice = int(input("Press 1 to create new list. Press 2 to choose presets: "))
+                if presetChoice != 1 and presetChoice != 2:
+                    # print("Please enter a valid input.")
+                else: 
+                    continue
+            except ValueError:
+                print("Invalid input. Please enter a number.")
 
         while True:
             global start_time
@@ -85,8 +96,8 @@ def webBlock():
                         f.writelines(' '.join(webStore))
                         f.write("\n")
                         print(f.read())      
-                        #ask user for time interval in minutes to block the websites 
-
+                    
+                    #ask user for time interval in minutes to block the websites 
                     while True:
                         try:
                             interval = int(input("How long are the websites going to be blocked (in minutes): "))
@@ -113,10 +124,21 @@ def webBlock():
                     #we need to update unblock time to make up for the time taken by user while inputting
                     unblock_time += inputTime
                     break
-                
+
             #block of code for the choice of looking at presets.
             elif current_time < unblock_time and doneInputting == False and presetChoice == 2:  
                 print("HAHAHAHA NIGGAS!")  
+                with open ("webstores.txt", "r") as f:
+                    f.seek(0)
+                    if not f.read():
+                        print("There are no presets yet. Please create one.")
+                        continue
+                    for i, line in enumerate(f):
+                        print(f'{i+1}. {line}'.strip())
+                    
+                    # f.seek(0);
+                    # lines = f.read()
+                    # print(lines)
 
 
             #block of code just for checking if block time is still on
