@@ -1,15 +1,17 @@
 from tkinter import *
-from PIL import Image
+# from PIL import Image
 from pygame import *
-from Questions import *
+
+
 
 def change(root):
+    from Questions import Quiz
     root.destroy()
     Quiz()
-    
+
 
 #Making windows dimensions
-def Dashboard():
+def dashboard():
     root = Tk()
     root.geometry("800x500")
     root.resizable(False, False)
@@ -48,5 +50,4 @@ def Dashboard_start(root):
     
     button2= Button(root, image=Unblock ,borderwidth=0,command=lambda:[change(root)], bg="#FDFCDC")
     button2.place(x=128,y=257)
-    
     

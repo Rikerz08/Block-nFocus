@@ -5,7 +5,7 @@ from Dashboard import *
 
 #----------- Warning window
 def Warning_Start(root):
-    newwin = Toplevel()
+    newwin = Toplevel(root)
     newwin.geometry("800x200")
     newwin.resizable(False, False)
     
@@ -26,14 +26,12 @@ def Warning_Start(root):
     button= Button(newwin, image=understood, command=lambda:[change(root)],borderwidth=0)
     button.grid(column=1, row=1, padx=311, pady=142)
     
-   
     newwin.mainloop()
-    
-  
+
 #switch window
 def change(root):
     root.destroy()
-    Dashboard()
+    dashboard()
     
 #Making windows dimensions
 def call():
@@ -78,5 +76,6 @@ def index(root):
     #Let us create a dummy button and pass the image
     button= Button(root, image=click_btn,command=lambda:[Warning_Start(root)],borderwidth=0)
     button.grid(column=1, row=1, padx=460, pady=170)
-
+    
+    
 call()

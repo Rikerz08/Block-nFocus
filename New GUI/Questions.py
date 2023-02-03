@@ -3,11 +3,26 @@ from tkinter import messagebox as mb
 import json
 
 
+def changeToDash(root):
+    from Dashboard import dashboard
+    root.destroy()
+    dashboard()
+    
+    
 def Quiz():
     global root
     root = Tk()
     root.geometry("800x500")
     root.title("Quiz")
+    
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+
+    x = (screen_width / 2) - (800 / 2)
+    y = (screen_height / 2 ) - (500 / 2)
+
+    root.geometry(f'800x500+{int(x)}+{int(y)}')
+    
     with open('quiz.json') as f:
         obj = json.load(f)
         
@@ -68,7 +83,7 @@ class QuizStart:
     def buttons(self):
         nbutton = Button(root, text="Next",command=self.nextbtn, width=10,bg="green",fg="white",font=("times",16,"bold"))
         nbutton.place(x=200,y=380)
-        quitbutton = Button(root, text="Quit", command=root.destroy,width=10,bg="red",fg="white", font=("times",16,"bold"))
+        quitbutton = Button(root, text="Quit", command= lambda:[changeToDash(root)] ,width=10,bg="red",fg="white", font=("times",16,"bold"))
         quitbutton.place(x=380,y=380)
 
     def checkans(self, qn):
@@ -93,7 +108,6 @@ class QuizStart:
         wrong = "No. of wrong answers: " + str(wc)
         mb.showinfo("Result", "\n".join([result, correct, wrong]))
         
-
 
 
 
