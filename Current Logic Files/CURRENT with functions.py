@@ -8,11 +8,11 @@ hostsPath = "C:\Windows\System32\drivers\etc\hosts"
 # #hosts path for linux/mac (uncomment the code according to your system)
 # hostspath = "/etc/hosts"
 
+#storing websites to be blocked
+webLists = []
+
 #localhost
 localRedirect = "127.0.0.1"
-
-#list for websites
-webLists = [];
 
 #we set unblock time to placeholding(1 year in minutes) value that is so long just so it's viable for the outer "if conditions" to work
 #this is just to make the code run long enough to reach the asking of user input for the minutes
@@ -29,7 +29,7 @@ def timeSet():
         #ask user for time interval in minutes to block the websites 
     while True:
         try:
-            interval = int(input("How long are the websites going to be blocked (in minutes): "))
+            interval = float(input("How long are the websites going to be blocked (in minutes): "))
             break
         except ValueError:
             print("Invalid input. Enter a valid time interval in minutes.")
@@ -106,6 +106,7 @@ def webBlock():
                     print("Please enter a valid input.")
                 else: 
                     while True:
+                        global webLists
                         global start_time
                         global doneInputting
                         global unblock_time
@@ -168,8 +169,8 @@ def webBlock():
                                 print(presetList)
                                 while True: 
                                     try:
-                                        presetDecision = int(input("Press 1 to block selected wesbites. Press 2 to add more websites to the presets. "))
-                                        if presetDecision != 1 and presetDecision != 2:
+                                        presetDecision = int(input("Press 1 to block selected wesbites. Press 2 to add more websites to the presets. Press 3 to delete preset. "))
+                                        if presetDecision != 1 and presetDecision != 2 and presetDecision != 3:
                                             print("Please enter a valid input.")
                                         else: 
                                             break
@@ -192,11 +193,34 @@ def webBlock():
                                         writeToHost(presetList)
                                         timeSet()
                                         break
-                                    
+                                elif presetDecision == 3:
+                                    # list to store file lines
+                                    lines = []
+                                    # read file
+                                    with open("webstores.txt", 'r') as fp:
+                                        # read an store all lines into list
+                                        lines = fp.readlines()
+
+                                    # Write file
+                                    with open("webstores.txt", 'w') as fp:
+                                        # iterate each line
+                                        for number, line in enumerate(lines):
+                                            # delete line 5 and 8. or pass any Nth line you want to remove
+                                            # note list index starts from 0
+                                            if number not in [presetNum-1]:
+                                                fp.write(line)
+                                    break
                         #block of code just for checking if block time is still on
                         elif current_time < unblock_time and doneInputting == True:
                             print("Blocking time is still on. (prints every 10 secs)   ", current_time)
                         elif current_time >= unblock_time and doneInputting == True:
+                            #we reset done inputting to false to be able to return to inputting if ever the user wants.
+                            doneInputting = False
+                            #reset unblock time, webLists, webStores, presetList
+                            unblock_time = datetime.datetime.now() + datetime.timedelta(minutes=525600)
+                            webLists = []
+                            webStore = []
+                            presetList = []
                             print("BLOCK TIME PASSED. ALL SITES UNBLOCKED.")
                             if isPreset == True:
                                 unBlock(presetList)
