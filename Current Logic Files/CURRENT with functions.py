@@ -2,6 +2,7 @@ import datetime
 import os
 import time
 import linecache
+
 # hosts path for windows (uncomment the code according to your system)
 hostsPath = "C:\Windows\System32\drivers\etc\hosts"
 
@@ -96,6 +97,8 @@ def unBlock(siteList):
             if not any(web in line for web in siteList):
                 f.write(line)
         #cuts of all lines that were not written in line 72
+        print("/n")
+        print(siteList)
         f.truncate()
 
 def webBlock():
@@ -218,14 +221,14 @@ def webBlock():
                             doneInputting = False
                             #reset unblock time, webLists, webStores, presetList
                             unblock_time = datetime.datetime.now() + datetime.timedelta(minutes=525600)
-                            webLists = []
-                            webStore = []
-                            presetList = []
                             print("BLOCK TIME PASSED. ALL SITES UNBLOCKED.")
                             if isPreset == True:
                                 unBlock(presetList)
                             else:
                                 unBlock(webLists)
+                            webLists = []
+                            webStore = []
+                            presetList = []
                             break
                         time.sleep(10)
             except ValueError:

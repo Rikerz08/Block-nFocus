@@ -4,7 +4,7 @@ DONE 2.a) input validation for sites
 DONE3.) Find a way to have the code run on a user-set time
 DONE3.b) Find a way to remove added websites from hosts file after set time
 3.c) NEED NATIN TO COPY THE CURRENT CONTENT OF HOSTS FILE BEFORE RUNNING THE CODE AND STORE IT INTO ANOTHER TEXT FILE IN CASE OF CRASHES AND PROVIDE DISCLAIMER.
-4.) Find a way to retrieve and display the presets
-4.a) Find a way to retrieve webstores(presets) and add more webssites to the presets
-4.b) Find a way to delete preset.
+DONe4.) Find a way to retrieve and display the presets
+DONE4.a) Find a way to retrieve webstores(presets) and add more webssites to the presets
+DONE4.b) Find a way to delete preset.
 5.) Create a UI and integrate the application
