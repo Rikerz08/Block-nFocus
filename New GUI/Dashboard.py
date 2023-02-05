@@ -31,7 +31,7 @@ def dashboard():
     global Block
     global Unblock
 
-    Dashboard_bg = PhotoImage(file='images/Dashboard 2.png')
+    Dashboard_bg = PhotoImage(file='images/Dashboard 3.png')
     Block = PhotoImage(file='images/Block.png')
     Unblock = PhotoImage(file='images/Unblock.png')
 
