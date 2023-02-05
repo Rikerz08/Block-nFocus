@@ -1,13 +1,15 @@
 from tkinter import *
 from tkinter import messagebox as mb
 import json
+from tkinter.font import Font
 
 
 def changeToDash(root):
     from Dashboard import dashboard
     root.destroy()
     dashboard()
-    
+
+
     
 def Quiz():
     global root
@@ -56,7 +58,7 @@ class QuizStart:
     def question(self, qn):
         # t = Label(root, text="Quiz in Python Programming", width=50, bg="blue", fg="white", font=("times", 20, "bold"))
         # t.place(x=0, y=2)
-        qn = Label(root, text=q[qn], width=60, font=("times", 16, "bold"), anchor="w", bg="#FDFCDC")
+        qn = Label(root, text=q[qn], width=60, font=("Arial", 16, "bold"), anchor="w", bg="#FDFCDC")
         qn.place(x=70, y=115)
         return qn
 
@@ -65,7 +67,7 @@ class QuizStart:
         b = []
         yp = 160
         while val < 4:
-            btn = Radiobutton(root, text=" ", variable=self.opt_selected, value=val + 1, font=("times", 14),bg="#FDFCDC")
+            btn = Radiobutton(root, text=" ", variable=self.opt_selected, value=val + 1, font=("Arial", 14),bg="#FDFCDC")
             b.append(btn)
             btn.place(x=100, y=yp)
             val += 1
@@ -81,9 +83,9 @@ class QuizStart:
               val += 1
 
     def buttons(self):
-        nbutton = Button(root, text="Next",command=self.nextbtn, width=10,bg="green",fg="white",font=("times",16,"bold"))
+        nbutton = Button(root, text="Next",command=self.nextbtn, width=10,bg="green",fg="white",font=("Roboto",16,"bold"))
         nbutton.place(x=200,y=380)
-        quitbutton = Button(root, text="Quit", command= lambda:[changeToDash(root)] ,width=10,bg="red",fg="white", font=("times",16,"bold"))
+        quitbutton = Button(root, text="Quit", command= lambda:[changeToDash(root)] ,width=10,bg="red",fg="white", font=("Roboto",16,"bold"))
         quitbutton.place(x=380,y=380)
 
     def checkans(self, qn):
@@ -107,6 +109,8 @@ class QuizStart:
         correct = "No. of correct answers: " + str(self.correct)
         wrong = "No. of wrong answers: " + str(wc)
         mb.showinfo("Result", "\n".join([result, correct, wrong]))
+    
+
         
 
 

@@ -4,10 +4,15 @@ from pygame import *
 
 
 
-def change(root):
+def unblock(root):
     from Questions import Quiz
     root.destroy()
     Quiz()
+
+def block(root):
+    from BlockScreen import blockScreen
+    root.destroy()
+    blockScreen()
 
 
 #Making windows dimensions
@@ -45,9 +50,9 @@ def Dashboard_start(root):
     label3.place(x = 0, y = 0)
 
     
-    button= Button(root, image=Block,borderwidth=0, bg="#FDFCDC")
+    button= Button(root, image=Block,borderwidth=0,command=lambda:[block(root)], bg="#FDFCDC")
     button.place(x = 200, y = 135)
     
-    button2= Button(root, image=Unblock ,borderwidth=0,command=lambda:[change(root)], bg="#FDFCDC")
+    button2= Button(root, image=Unblock ,borderwidth=0,command=lambda:[unblock(root)], bg="#FDFCDC")
     button2.place(x=128,y=257)
     
