@@ -27,14 +27,17 @@ my_listbox.insert(END, "This is an item")
 my_listbox.insert(END, "Second Item!")
 
 # Add list of items
-my_list = ["One", "Two", "Three", "One", "Two", "Three", "One", "Two", "Three", "One", "Two", "Three", "One", "Two", "Three", "One", "Two", "Three", "One", "Two", "Three", "One", "Two", "Three", ]
+with open('webstores.txt', 'r') as f:
+	presetList = [line.rstrip() for line in f]
 
-for item in my_list:
+for item in presetList:
 	my_listbox.insert(END, item)
 
 def delete():
 	my_listbox.delete(ANCHOR)
 	my_label.config(text='')
+	#find the index of the element in the list that contains the text in the anchor
+	#and then do the listcache to get the line number (index + 1) and delete the line from file.
 
 def select():
 	my_label.config(text=my_listbox.get(ANCHOR))
