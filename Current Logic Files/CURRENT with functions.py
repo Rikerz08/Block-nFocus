@@ -218,14 +218,14 @@ def webBlock():
                             doneInputting = False
                             #reset unblock time, webLists, webStores, presetList
                             unblock_time = datetime.datetime.now() + datetime.timedelta(minutes=525600)
-                            webLists = []
-                            webStore = []
-                            presetList = []
                             print("BLOCK TIME PASSED. ALL SITES UNBLOCKED.")
                             if isPreset == True:
                                 unBlock(presetList)
                             else:
                                 unBlock(webLists)
+                            webLists = []
+                            webStore = []
+                            presetList = []
                             break
                         time.sleep(10)
             except ValueError:
