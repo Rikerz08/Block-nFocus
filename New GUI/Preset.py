@@ -1,5 +1,10 @@
 from tkinter import *
 import linecache
+import datetime
+
+#we set unblock time to placeholding(1 year in minutes) value that is so long just so it's viable for the outer "if conditions" to work
+#this is just to make the code run long enough to reach the asking of user input for the minutes
+unblock_time = datetime.datetime.now() + datetime.timedelta(minutes=525600)
 
 def preset():
     global root
@@ -57,7 +62,7 @@ def preset():
     # Listbox!
     # SINGLE, BROWSE, MULTIPLE, EXTENDED
     global my_listbox
-    my_listbox = Listbox(my_frame, width=53,height=8, yscrollcommand=my_scrollbar.set, font=('Times', 20), selectmode=SINGLE, borderwidth=0)
+    my_listbox = Listbox(my_frame, width=53,height=8, yscrollcommand=my_scrollbar.set, font=('Times', 20), selectmode=SINGLE, borderwidth=0, activestyle="none")
     #configure scrollbar
     my_scrollbar.config(command=my_listbox.yview)
     my_scrollbar.pack(side=RIGHT, fill=Y)
@@ -85,6 +90,9 @@ def back():
     blockScreen()
     
 def DeleteWarn():
+    #If no item is selected, then just not run the function
+    if not my_listbox.curselection():
+        return ErrorMsg()
     newwin = Toplevel(root)
     newwin.geometry("800x200")
     newwin.resizable(False, False)
@@ -140,6 +148,11 @@ def SelectWarn(a):
     newwin.mainloop()
 
 def timeSet():
+    #If no item is selected, then just not run the function
+    if not my_listbox.curselection():
+        return ErrorMsg()
+    global timeInput
+    # a.destroy()
     newwin = Toplevel(root)
     newwin.geometry("800x200")
     newwin.resizable(False, False)
@@ -157,17 +170,32 @@ def timeSet():
     label2 = Label(newwin, image= timeSetBg)
     label2.place(x = 0, y = 0)
     
-    InputField = Entry(newwin, font="Arial 45")
-    InputField.place(x = 180, y = 70, width=200, height=50)
+    timeInput = Entry(newwin, font="Arial 45")
+    timeInput.place(x = 180, y = 70, width=200, height=50)
     
     #creating the Understand button
-    button= Button(newwin, image=presetBlock, command=lambda:[SelectWarn(newwin)],borderwidth=0, background="#524B62")
+    button= Button(newwin, image=presetBlock, command=lambda:[timeSet2(newwin)],borderwidth=0, background="#524B62")
     button.place(x = 187, y = 138)
     
     button= Button(newwin, image=No, command=lambda:[newwin.destroy()],borderwidth=0, background="#524B62")
     button.place(x = 430, y = 138)
     
     newwin.mainloop()
+
+def timeSet2(a):
+    global start_time
+    global unblock_time
+    while True:
+        try:
+            interval = float(timeInput.get())
+            break
+        except ValueError:
+            ErrorMsg()
+    start_time = datetime.datetime.now()
+    unblock_time = start_time + datetime.timedelta(minutes=interval)
+    SelectWarn(a)
+    # from LogicFunctions import timeSetLogic
+    # timeSetLogic(timeInput)
 
 def ErrorMsg():
     newwin = Toplevel(root)
@@ -245,8 +273,12 @@ def delete(a):
     # my_label.config(text='')
 
 def select(a):
+    global timeDifference
+    global unblock_time
     a.destroy()
-    from LogicFunctions import writeToHost, timeSet
+    if not my_listbox.curselection():
+        return ErrorMsg()
+    from LogicFunctions import checkTime, writeToHost
     for item in my_listbox.curselection():
         delIndex = (item+1)
     currentPreset = linecache.getline("webstores.txt", delIndex)
@@ -254,6 +286,11 @@ def select(a):
     # my_label.config(text=my_listbox.get(ANCHOR))
     writeToHost(currentPresetList)
     print("WRITTEN TO HOST")
+
+    current_time = datetime.datetime.now()
+    timeDifference = current_time - start_time
+    unblock_time += timeDifference
+    checkTime(current_time, unblock_time, currentPresetList)
 
 def delete_all(a):
     with open('webstores.txt', 'w') as f:

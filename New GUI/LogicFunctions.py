@@ -1,4 +1,5 @@
 import datetime
+import time
 import os
 # hosts path for windows (uncomment the code according to your system)
 hostsPath = "C:\Windows\System32\drivers\etc\hosts"
@@ -19,37 +20,55 @@ unblock_time = datetime.datetime.now() + datetime.timedelta(minutes=525600)
 #This is just a variable to make sure that the function of inputting a list again does not go back while waiting for time to unblock
 doneInputting = False;
 
-def timeSet():
+# def timeSetLogic(userInput):
+#     from Preset import ErrorMsg, select
+#     global interval
+#     global start_time
+#     global unblock_time
+#         #ask user for time interval in minutes to block the websites 
+#     while True:
+#         try:
+#             interval = float(userInput.get())
+#             print("IT READ THE CODE")
+#             # select()
+#             break
+#         except ValueError:
+#             ErrorMsg()
+#             # print("ERROR")    
 
-    global interval
-    global start_time
-    global unblock_time
-        #ask user for time interval in minutes to block the websites 
-    while True:
-        try:
-            interval = float(input("How long are the websites going to be blocked (in minutes): "))
-            break
-        except ValueError:
-            print("Invalid input. Enter a valid time interval in minutes.")
+#     #initialization of start and end time are done outside of funtion so that their values will not be altered in each sleep iteration
+#     start_time = datetime.datetime.now()
+#     unblock_time = start_time + datetime.timedelta(minutes=interval)      
 
-    #initialization of start and end time are done outside of funtion so that their values will not be altered in each sleep iteration
-    start_time = datetime.datetime.now()
-    unblock_time = start_time + datetime.timedelta(minutes=interval)      
+#     print("Proceeding will exit all browsers. Unsaved progress will be lost.")
+#     killDecision = input("Do you wish to proceed or exit browsers manually? (Y/N) ")
 
-    print("Proceeding will exit all browsers. Unsaved progress will be lost.")
-    killDecision = input("Do you wish to proceed or exit browsers manually? (Y/N) ")
+#     if killDecision.upper() == "Y":
+#         os.system("taskkill /im firefox.exe /f")
+#         os.system("taskkill /im chrome.exe /f")
+#         os.system("taskkill /im opera.exe /f")
+#         os.system("taskkill /im msedge.exe /f") 
+#         os.system("taskkill /im brave.exe /f")
+#     #upon the very moment of killing the browsers, we need a new current time var to be subtracted by the start time var
+#     #and we need to add it to the unblock time var to make up for the time that was taken while the user was still inputting data
+#     inputTime = datetime.datetime.now() - start_time
+#     #we need to update unblock time to make up for the time taken by user while inputting
+#     unblock_time += inputTime
 
-    if killDecision.upper() == "Y":
-        os.system("taskkill /im firefox.exe /f")
-        os.system("taskkill /im chrome.exe /f")
-        os.system("taskkill /im opera.exe /f")
-        os.system("taskkill /im msedge.exe /f") 
-        os.system("taskkill /im brave.exe /f")
-    #upon the very moment of killing the browsers, we need a new current time var to be subtracted by the start time var
-    #and we need to add it to the unblock time var to make up for the time that was taken while the user was still inputting data
-    inputTime = datetime.datetime.now() - start_time
-    #we need to update unblock time to make up for the time taken by user while inputting
-    unblock_time += inputTime
+# def timeLogicNew(userInput): 
+#     # from Preset import ErrorMsg
+#     global unblock_time
+#     # a.destroy()
+#     while True:
+#         try:
+#             interval = float(userInput.get())
+#             break
+#         except ValueError:
+#             # ErrorMsg()
+#             print("HELLO!")
+#     start_time = datetime.datetime.now()
+#     unblock_time = start_time + datetime.timedelta(minutes=interval)
+#     # print("new unblock time:", unblock_time)
 
 def inputSites(siteList):
     global toBlock
@@ -95,3 +114,35 @@ def unBlock(siteList):
                 f.write(line)
         #cuts of all lines that were not written in line 72
         f.truncate()
+
+
+def checkTime(currTime, doneTime, currList):
+    print(doneTime)
+    while True:
+        currTime = datetime.datetime.now()
+        if currTime < doneTime:
+            pass
+        else:
+            print("UNBLOCKED ALL SITES")
+            unBlock(currList)
+            break
+        time.sleep(10)
+
+# def checkTime(currTime, doneTime, currList):
+#     print(doneTime)
+#     start_time = time.perf_counter()
+#     interval = 10
+#     while True:
+#         currTime = datetime.datetime.now()
+#         if currTime < doneTime:
+#             # print(currTime, "BLOCK TIME STILL ON (EVERY 10 SECS)")
+#             pass
+#         else:
+#             print("UNBLOCKED ALL SITES")
+#             unBlock(currList)
+#             break
+#         current_time = time.perf_counter()
+#         elapsed_time = current_time - start_time
+#         if elapsed_time >= interval:
+#             start_time = current_time
+#             continue
