@@ -25,12 +25,16 @@ def preset():
     global Back
     global No
     global Yes
+    global Selectbg
+    global presetBlock
     preset_bg = PhotoImage(file='images/Presets.png')
     Select = PhotoImage(file='images/PresetSelect.png')
+    presetBlock = PhotoImage(file='images/PresetBlock.png')
     Delete = PhotoImage(file='images/PresetDelete.png')
     DeleteAll = PhotoImage(file='images/PresetDeleteAll.png')
     WarningDelbg = PhotoImage(file='images/WarningDelete.png')
     WarningDelAllbg = PhotoImage(file='images/WarningDeleteAll.png')
+    Selectbg = PhotoImage(file='images/Selectbg.png')
     No = PhotoImage(file='images/No.png')
     Yes = PhotoImage(file='images/Yes.png')
     Back = PhotoImage(file='images/Back.png')
@@ -102,6 +106,33 @@ def DeleteWarn():
     
     newwin.mainloop()
 
+def SelectWarn():
+    newwin = Toplevel(root)
+    newwin.geometry("800x200")
+    newwin.resizable(False, False)
+    
+    #making the window always pop up at the center of the screen
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+    
+    x = (screen_width / 2) - (800 / 2)
+    y = (screen_height / 2 ) - (200 / 2)
+    
+    newwin.geometry(f'800x200+{int(x)}+{int(y)}')
+
+    #placing the bg image by using label
+    label2 = Label(newwin, image= Selectbg)
+    label2.place(x = 0, y = 0)
+    
+    #creating the Understand button
+    button= Button(newwin, image=Yes, command=lambda:[Select(newwin)],borderwidth=0, background="#1E1A1A")
+    button.place(x = 187, y = 138)
+    
+    button= Button(newwin, image=No, command=lambda:[newwin.destroy()],borderwidth=0, background="#1E1A1A")
+    button.place(x = 430, y = 138)
+    
+    newwin.mainloop()
+
 def DeleteAllWarn():
     newwin = Toplevel(root)
     newwin.geometry("800x200")
@@ -151,8 +182,9 @@ def delete(a):
     my_listbox.delete(ANCHOR)
     # my_label.config(text='')
 
-def select():
-	my_label.config(text=my_listbox.get(ANCHOR))
+def select(a):
+    a.destroy()
+    my_label.config(text=my_listbox.get(ANCHOR))
 
 def delete_all(a):
     with open('webstores.txt', 'w') as f:
@@ -177,7 +209,7 @@ def Preset_Start():
    
     # my_button = Button(root, text="Delete", command=delete)
     # my_button.pack(pady=10)
-    button1= Button(root, image=Select,borderwidth=0,command=select, bg="#FDFCDC")
+    button1= Button(root, image=presetBlock,borderwidth=0,command=SelectWarn, bg="#FDFCDC")
     button1.place(x = 55, y = 400)
     
     button2= Button(root, image=Delete,borderwidth=0,command=DeleteWarn, bg="#FDFCDC")

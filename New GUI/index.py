@@ -49,6 +49,7 @@ def call():
     y = (screen_height / 2 ) - (500 / 2)
 
     root.geometry(f'800x500+{int(x)}+{int(y)}')
+ 
     
     #global variables to make it accessible
     global bg
