@@ -11,7 +11,7 @@ def Warning_Start(root):
     
     #making the window always pop up at the center of the screen
     screen_width = root.winfo_screenwidth()
-    screen_height = root.winfo_screenheight()
+    screen_height = root.winfo_screenheight()   
     
     x = (screen_width / 2) - (800 / 2)
     y = (screen_height / 2 ) - (200 / 2)
