@@ -55,20 +55,20 @@ def preset():
     my_frame.place(x = 22, y = 100)
     my_frame.configure(background="#FFFBFD")
     
-    
-    
-    
-    global my_list
     my_listbox.pack(pady=15)
-    
-    my_list = ["One", "Two", "Three", "One", "Two", "Three", "One", "Two", "Three", "One", "Two", "Three", "One", "Two", "Three", "One", "Two", "Three", "One", "Two", "Three", "One", "Two", "Three", ]
+    #This code is for getting the lines from the txt file and displaying them into the list box
+    global presetList
 
-    for item in my_list:
+    with open('webstores.txt', 'r') as f:
+        presetList = [line.rstrip() for line in f]
+
+    for item in presetList:
         my_listbox.insert(END, item)
     
     Preset_Start()
     
     root.mainloop()
+
 
 def back():
     from BlockScreen import blockScreen
@@ -130,6 +130,23 @@ def DeleteAllWarn():
     newwin.mainloop()
         
 def delete(a):
+	#curselection will capture the current selection in the listbox by iterating thru it
+	#then we assign the index to a variable in order for it to be deleted in webfile
+    for item in my_listbox.curselection():
+        delIndex = (item+1)
+    lines = []
+    # read file
+    with open("webstores.txt", 'r') as fp:
+		# read an store all lines into list
+        lines = fp.readlines()
+    # Write file
+    with open("webstores.txt", 'w') as fp:
+		# iterate each line
+        for number, line in enumerate(lines):
+			# delete line 5 and 8. or pass any Nth line you want to remove
+			# note list index starts from 0
+            if number not in [delIndex-1]:
+                fp.write(line)
     a.destroy()
     my_listbox.delete(ANCHOR)
     # my_label.config(text='')
@@ -138,6 +155,8 @@ def select():
 	my_label.config(text=my_listbox.get(ANCHOR))
 
 def delete_all(a):
+    with open('webstores.txt', 'w') as f:
+        f.truncate(0)
     a.destroy()
     my_listbox.delete(0, END)
 
@@ -156,7 +175,6 @@ def delete_multiple():
   
 def Preset_Start():
    
-    
     # my_button = Button(root, text="Delete", command=delete)
     # my_button.pack(pady=10)
     button1= Button(root, image=Select,borderwidth=0,command=select, bg="#FDFCDC")
@@ -188,3 +206,8 @@ def Preset_Start():
 
     # my_button5 = Button(root, text="Delete Multiple", command=delete_multiple)
     # my_button5.pack(pady=10)
+
+
+
+######################################################################################################################################################################################
+# preset()
