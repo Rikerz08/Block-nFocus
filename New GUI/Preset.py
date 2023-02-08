@@ -159,10 +159,12 @@ def timeSet():
     global delIndex
     global currentPreset
     global currentPresetList
+    global noDupCurrentPresetList
     for item in my_listbox.curselection():
         delIndex = (item+1)
     currentPreset = linecache.getline("webstores.txt", delIndex)
     currentPresetList = currentPreset.split()
+    noDupCurrentPresetList = list(dict.fromkeys(currentPresetList))
     #If no item is selected, then just not run the function
     if not my_listbox.curselection():
         return ErrorMsg()
@@ -320,7 +322,7 @@ def select(a):
     global unblock_time
     a.destroy()
     from LogicFunctions import checkTime, writeToHost
-    writeToHost(currentPresetList)
+    writeToHost(noDupCurrentPresetList)
     print("WRITTEN TO HOST")
     current_time = datetime.datetime.now()
     timeDifference = current_time - start_time
@@ -332,19 +334,6 @@ def delete_all(a):
         f.truncate(0)
     a.destroy()
     my_listbox.delete(0, END)
-
-def select_all():
-	result = ''
-
-	for item in my_listbox.curselection():
-		result = result + str(my_listbox.get(item)) + '\n'
-
-	my_label.config(text=result)
-
-def delete_multiple():
-	for item in reversed(my_listbox.curselection()):
-		my_listbox.delete(item)
-		my_label.config(text='')
   
 def Preset_Start():
    
@@ -383,4 +372,4 @@ def Preset_Start():
 
 
 ######################################################################################################################################################################################
-# preset()
+preset()
