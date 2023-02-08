@@ -116,33 +116,22 @@ def unBlock(siteList):
         f.truncate()
 
 
-def checkTime(currTime, doneTime, currList):
+def checkTime(currTime, doneTime, currList, gui):
     print(doneTime)
-    while True:
-        currTime = datetime.datetime.now()
-        if currTime < doneTime:
-            pass
-        else:
-            print("UNBLOCKED ALL SITES")
-            unBlock(currList)
-            break
-        time.sleep(10)
-
-# def checkTime(currTime, doneTime, currList):
-#     print(doneTime)
-#     start_time = time.perf_counter()
-#     interval = 10
-#     while True:
-#         currTime = datetime.datetime.now()
-#         if currTime < doneTime:
-#             # print(currTime, "BLOCK TIME STILL ON (EVERY 10 SECS)")
-#             pass
-#         else:
-#             print("UNBLOCKED ALL SITES")
-#             unBlock(currList)
-#             break
-#         current_time = time.perf_counter()
-#         elapsed_time = current_time - start_time
-#         if elapsed_time >= interval:
-#             start_time = current_time
-#             continue
+    # while True:
+    currTime = datetime.datetime.now()
+    if currTime < doneTime:
+        print("BLOCK TIME STILL ON.")
+        # continue
+    else:
+        print("UNBLOCKED ALL SITES")
+        unBlock(currList)
+        return
+    # If you want to update the current time in a loop and still 
+    # be able to use a GUI, you can use the after method in Tkinter. 
+    # The after method allows you to schedule a function to be executed after a specified number of milliseconds.
+    # The update_time function is defined to get the current time using the datetime module and update the text of the label. 
+    # The root.after method is used to schedule the update_time function to be executed every 1000 milliseconds (1 second), allowing the GUI to update 
+    # the current time in real-time without blocking the GUI. 
+    # The root.mainloop method is used to start the Tkinter event loop and keep the GUI running until it is closed by the user.
+    gui.after(10000, checkTime, currTime, doneTime, currList, gui)

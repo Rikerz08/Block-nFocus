@@ -152,6 +152,17 @@ def SelectWarn(a):
     newwin.mainloop()
 
 def timeSet():
+    #We initialized the selection for the currentpreset here in timeSet func
+    #instead of select func, so that even before we input the time, there is already a stored value in the list
+    #this is because we notice that when we select an element, and then double click the entry on timeSet window
+    #the selection disappears thus going into the error of "if not my_listbox.curselection()"
+    global delIndex
+    global currentPreset
+    global currentPresetList
+    for item in my_listbox.curselection():
+        delIndex = (item+1)
+    currentPreset = linecache.getline("webstores.txt", delIndex)
+    currentPresetList = currentPreset.split()
     #If no item is selected, then just not run the function
     if not my_listbox.curselection():
         return ErrorMsg()
@@ -187,11 +198,12 @@ def timeSet():
     newwin.mainloop()
 
 def timeSet2(a):
+    timeValue = timeInput.get()
     global start_time
     global unblock_time
     while True:
         try:
-            interval = float(timeInput.get())
+            interval = float(timeValue)
             break
         except ValueError:
             ErrorMsg()
@@ -301,24 +313,19 @@ def delete(a):
     # my_label.config(text='')
 
 def select(a):
+    # if not my_listbox.curselection():
+    #     print("KANI JD")
+    #     return ErrorMsg()
     global timeDifference
     global unblock_time
     a.destroy()
-    if not my_listbox.curselection():
-        return ErrorMsg()
     from LogicFunctions import checkTime, writeToHost
-    for item in my_listbox.curselection():
-        delIndex = (item+1)
-    currentPreset = linecache.getline("webstores.txt", delIndex)
-    currentPresetList = currentPreset.split()
-    # my_label.config(text=my_listbox.get(ANCHOR))
     writeToHost(currentPresetList)
     print("WRITTEN TO HOST")
-
     current_time = datetime.datetime.now()
     timeDifference = current_time - start_time
     unblock_time += timeDifference
-    checkTime(current_time, unblock_time, currentPresetList)
+    checkTime(current_time, unblock_time, currentPresetList, root)
 
 def delete_all(a):
     with open('webstores.txt', 'w') as f:
@@ -376,4 +383,4 @@ def Preset_Start():
 
 
 ######################################################################################################################################################################################
-preset()
+# preset()
