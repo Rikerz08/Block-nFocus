@@ -1,5 +1,5 @@
 from tkinter import *
-
+import linecache
 
 def preset():
     global root
@@ -182,9 +182,15 @@ def delete(a):
     my_listbox.delete(ANCHOR)
     # my_label.config(text='')
 
-def select(a):
-    a.destroy()
-    my_label.config(text=my_listbox.get(ANCHOR))
+def select():
+    from LogicFunctions import writeToHost, timeSet
+    for item in my_listbox.curselection():
+        delIndex = (item+1)
+    currentPreset = linecache.getline("webstores.txt", delIndex)
+    currentPresetList = currentPreset.split()
+    # my_label.config(text=my_listbox.get(ANCHOR))
+    writeToHost(currentPresetList)
+    print("WRITTEN TO HOST")
 
 def delete_all(a):
     with open('webstores.txt', 'w') as f:
