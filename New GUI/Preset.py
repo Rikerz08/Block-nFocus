@@ -27,6 +27,9 @@ def preset():
     global Yes
     global Selectbg
     global presetBlock
+    global timeSetBg
+    global ErrorMsgBg
+    global Okay
     preset_bg = PhotoImage(file='images/Presets.png')
     Select = PhotoImage(file='images/PresetSelect.png')
     presetBlock = PhotoImage(file='images/PresetBlock.png')
@@ -34,14 +37,17 @@ def preset():
     DeleteAll = PhotoImage(file='images/PresetDeleteAll.png')
     WarningDelbg = PhotoImage(file='images/WarningDelete.png')
     WarningDelAllbg = PhotoImage(file='images/WarningDeleteAll.png')
+    timeSetBg = PhotoImage(file='images/timeSetbg.png')
     Selectbg = PhotoImage(file='images/Selectbg.png')
+    ErrorMsgBg = PhotoImage(file='images/ErrorBg.png')
     No = PhotoImage(file='images/No.png')
     Yes = PhotoImage(file='images/Yes.png')
     Back = PhotoImage(file='images/Back.png')
+    Okay = PhotoImage(file='images/Okay.png')
     
     
     label3 = Label(root, image= preset_bg)
-    label3.place(x = 0, y = 0)
+    label3.place(x = -2, y = -2)
     
     
     # Create frame and scrollbar
@@ -105,7 +111,8 @@ def DeleteWarn():
     
     newwin.mainloop()
 
-def SelectWarn():
+def SelectWarn(a):
+    a.destroy()
     newwin = Toplevel(root)
     newwin.geometry("800x200")
     newwin.resizable(False, False)
@@ -129,6 +136,60 @@ def SelectWarn():
     
     button= Button(newwin, image=No, command=lambda:[newwin.destroy()],borderwidth=0, background="#1E1A1A")
     button.place(x = 430, y = 138)
+    
+    newwin.mainloop()
+
+def timeSet():
+    newwin = Toplevel(root)
+    newwin.geometry("800x200")
+    newwin.resizable(False, False)
+    
+    #making the window always pop up at the center of the screen
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+    
+    x = (screen_width / 2) - (800 / 2)
+    y = (screen_height / 2 ) - (200 / 2)
+    
+    newwin.geometry(f'800x200+{int(x)}+{int(y)}')
+
+    #placing the bg image by using label
+    label2 = Label(newwin, image= timeSetBg)
+    label2.place(x = 0, y = 0)
+    
+    InputField = Entry(newwin, font="Arial 45")
+    InputField.place(x = 180, y = 70, width=200, height=50)
+    
+    #creating the Understand button
+    button= Button(newwin, image=presetBlock, command=lambda:[SelectWarn(newwin)],borderwidth=0, background="#524B62")
+    button.place(x = 187, y = 138)
+    
+    button= Button(newwin, image=No, command=lambda:[newwin.destroy()],borderwidth=0, background="#524B62")
+    button.place(x = 430, y = 138)
+    
+    newwin.mainloop()
+
+def ErrorMsg():
+    newwin = Toplevel(root)
+    newwin.geometry("800x200")
+    newwin.resizable(False, False)
+    
+    #making the window always pop up at the center of the screen
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+    
+    x = (screen_width / 2) - (800 / 2)
+    y = (screen_height / 2 ) - (200 / 2)
+    
+    newwin.geometry(f'800x200+{int(x)}+{int(y)}')
+
+    #placing the bg image by using label
+    label2 = Label(newwin, image= ErrorMsgBg)
+    label2.place(x = 0, y = 0)
+    
+    
+    button= Button(newwin, image=Okay, command=lambda:[newwin.destroy()],borderwidth=0, background="#1E1A1A")
+    button.place(x = 310, y = 138)
     
     newwin.mainloop()
 
@@ -217,11 +278,11 @@ def Preset_Start():
    
     # my_button = Button(root, text="Delete", command=delete)
     # my_button.pack(pady=10)
-    button1= Button(root, image=presetBlock,borderwidth=0,command=SelectWarn, bg="#FDFCDC")
+    button1= Button(root, image=presetBlock,borderwidth=0,command=timeSet, bg="#FDFCDC")
     button1.place(x = 55, y = 400)
     
     button2= Button(root, image=Delete,borderwidth=0,command=DeleteWarn, bg="#FDFCDC")
-    button2.place(x = 318, y = 400)
+    button2.place(x = 310, y = 400)
     
     button3= Button(root, image=DeleteAll,borderwidth=0,command=DeleteAllWarn, bg="#FDFCDC")
     button3.place(x = 578, y = 400)
@@ -250,4 +311,4 @@ def Preset_Start():
 
 
 ######################################################################################################################################################################################
-preset()
+# preset()
