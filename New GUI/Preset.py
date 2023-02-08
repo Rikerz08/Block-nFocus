@@ -125,7 +125,7 @@ def SelectWarn():
     label2.place(x = 0, y = 0)
     
     #creating the Understand button
-    button= Button(newwin, image=Yes, command=lambda:[Select(newwin)],borderwidth=0, background="#1E1A1A")
+    button= Button(newwin, image=Yes, command=lambda:[select(newwin)],borderwidth=0, background="#1E1A1A")
     button.place(x = 187, y = 138)
     
     button= Button(newwin, image=No, command=lambda:[newwin.destroy()],borderwidth=0, background="#1E1A1A")
@@ -182,7 +182,8 @@ def delete(a):
     my_listbox.delete(ANCHOR)
     # my_label.config(text='')
 
-def select():
+def select(a):
+    a.destroy()
     from LogicFunctions import writeToHost, timeSet
     for item in my_listbox.curselection():
         delIndex = (item+1)
@@ -248,4 +249,4 @@ def Preset_Start():
 
 
 ######################################################################################################################################################################################
-# preset()
+preset()
