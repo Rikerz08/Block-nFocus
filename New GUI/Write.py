@@ -96,18 +96,18 @@ def verify(a):
                 f.write("\n")
                 f.write(localRedirect + " " + web)
                 exit(oldtab)
-def Unblock():  
-    print("unblock sites")
-    with open (hostsPath, 'r+') as f:
-        lines = f.readlines()
-        f.seek(0)
-        for line in lines:
-            #statement to know if there are no words in the line that belong to the weblists, 
-            # because if there are none found, the line would be written back to the hostfile, and not removed
-            if not any(web in line for web in webLists):
-                f.write(line)
-        #cuts of all lines that were not written in line 72
-        f.truncate()
+# def Unblock():  
+#     print("unblock sites")
+#     with open (hostsPath, 'r+') as f:
+#         lines = f.readlines()
+#         f.seek(0)
+#         for line in lines:
+#             #statement to know if there are no words in the line that belong to the weblists, 
+#             # because if there are none found, the line would be written back to the hostfile, and not removed
+#             if not any(web in line for web in webLists):
+#                 f.write(line)
+#         #cuts of all lines that were not written in line 72
+#         f.truncate()
 
 
 
