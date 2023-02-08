@@ -35,6 +35,8 @@ def preset():
     global timeSetBg
     global ErrorMsgBg
     global Okay
+    global unblockedbg
+    global proceed
     preset_bg = PhotoImage(file='images/Presets.png')
     Select = PhotoImage(file='images/PresetSelect.png')
     presetBlock = PhotoImage(file='images/PresetBlock.png')
@@ -45,10 +47,12 @@ def preset():
     timeSetBg = PhotoImage(file='images/timeSetbg.png')
     Selectbg = PhotoImage(file='images/Selectbg.png')
     ErrorMsgBg = PhotoImage(file='images/ErrorBg.png')
+    unblockedbg = PhotoImage(file='images/SuccessUnblockBg.png')
     No = PhotoImage(file='images/No.png')
     Yes = PhotoImage(file='images/Yes.png')
     Back = PhotoImage(file='images/Back.png')
     Okay = PhotoImage(file='images/Okay.png')
+    proceed = PhotoImage(file='images/proceed.png')
     
     
     label3 = Label(root, image= preset_bg)
@@ -221,6 +225,30 @@ def ErrorMsg():
     
     newwin.mainloop()
 
+def UnblockedMsg():
+    newwin = Toplevel(root)
+    newwin.geometry("800x200")
+    newwin.resizable(False, False)
+    
+    #making the window always pop up at the center of the screen
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+    
+    x = (screen_width / 2) - (800 / 2)
+    y = (screen_height / 2 ) - (200 / 2)
+    
+    newwin.geometry(f'800x200+{int(x)}+{int(y)}')
+
+    #placing the bg image by using label
+    label2 = Label(newwin, image= unblockedbg)
+    label2.place(x = 0, y = 0)
+    
+    
+    button= Button(newwin, image=proceed, command=lambda:[newwin.destroy()],borderwidth=0, background="#1E1A1A")
+    button.place(x = 310, y = 138)
+    
+    newwin.mainloop()
+
 def DeleteAllWarn():
     newwin = Toplevel(root)
     newwin.geometry("800x200")
@@ -348,4 +376,4 @@ def Preset_Start():
 
 
 ######################################################################################################################################################################################
-# preset()
+preset()
