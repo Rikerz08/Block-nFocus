@@ -52,7 +52,6 @@ def preset():
     # SINGLE, BROWSE, MULTIPLE, EXTENDED
     global my_listbox
     my_listbox = Listbox(my_frame, width=53,height=8, yscrollcommand=my_scrollbar.set, font=('Times', 20), selectmode=SINGLE, borderwidth=0)
-
     #configure scrollbar
     my_scrollbar.config(command=my_listbox.yview)
     my_scrollbar.pack(side=RIGHT, fill=Y)
@@ -163,19 +162,21 @@ def DeleteAllWarn():
 def delete(a):
 	#curselection will capture the current selection in the listbox by iterating thru it
 	#then we assign the index to a variable in order for it to be deleted in webfile
+
     for item in my_listbox.curselection():
         delIndex = (item+1)
+
     lines = []
     # read file
     with open("webstores.txt", 'r') as fp:
-		# read an store all lines into list
+        # read an store all lines into list
         lines = fp.readlines()
     # Write file
     with open("webstores.txt", 'w') as fp:
-		# iterate each line
+        # iterate each line
         for number, line in enumerate(lines):
-			# delete line 5 and 8. or pass any Nth line you want to remove
-			# note list index starts from 0
+            # delete line 5 and 8. or pass any Nth line you want to remove
+            # note list index starts from 0
             if number not in [delIndex-1]:
                 fp.write(line)
     a.destroy()
