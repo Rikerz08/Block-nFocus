@@ -27,6 +27,7 @@ def preset():
     global Yes
     global Selectbg
     global presetBlock
+    global timeSetBg
     preset_bg = PhotoImage(file='images/Presets.png')
     Select = PhotoImage(file='images/PresetSelect.png')
     presetBlock = PhotoImage(file='images/PresetBlock.png')
@@ -34,6 +35,7 @@ def preset():
     DeleteAll = PhotoImage(file='images/PresetDeleteAll.png')
     WarningDelbg = PhotoImage(file='images/WarningDelete.png')
     WarningDelAllbg = PhotoImage(file='images/WarningDeleteAll.png')
+    timeSetBg = PhotoImage(file='images/timeSetbg.png')
     Selectbg = PhotoImage(file='images/Selectbg.png')
     No = PhotoImage(file='images/No.png')
     Yes = PhotoImage(file='images/Yes.png')
@@ -41,7 +43,7 @@ def preset():
     
     
     label3 = Label(root, image= preset_bg)
-    label3.place(x = 0, y = 0)
+    label3.place(x = -2, y = -2)
     
     
     # Create frame and scrollbar
@@ -106,7 +108,8 @@ def DeleteWarn():
     
     newwin.mainloop()
 
-def SelectWarn():
+def SelectWarn(a):
+    a.destroy()
     newwin = Toplevel(root)
     newwin.geometry("800x200")
     newwin.resizable(False, False)
@@ -126,6 +129,36 @@ def SelectWarn():
     
     #creating the Understand button
     button= Button(newwin, image=Yes, command=lambda:[select(newwin)],borderwidth=0, background="#1E1A1A")
+    button.place(x = 187, y = 138)
+    
+    button= Button(newwin, image=No, command=lambda:[newwin.destroy()],borderwidth=0, background="#1E1A1A")
+    button.place(x = 430, y = 138)
+    
+    newwin.mainloop()
+
+def timeSet():
+    newwin = Toplevel(root)
+    newwin.geometry("800x200")
+    newwin.resizable(False, False)
+    
+    #making the window always pop up at the center of the screen
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+    
+    x = (screen_width / 2) - (800 / 2)
+    y = (screen_height / 2 ) - (200 / 2)
+    
+    newwin.geometry(f'800x200+{int(x)}+{int(y)}')
+
+    #placing the bg image by using label
+    label2 = Label(newwin, image= timeSetBg)
+    label2.place(x = 0, y = 0)
+    
+    InputField = Entry(newwin, font="Arial 45")
+    InputField.place(x = 180, y = 70, width=200, height=50)
+    
+    #creating the Understand button
+    button= Button(newwin, image=presetBlock, command=lambda:[SelectWarn(newwin)],borderwidth=0, background="#1E1A1A")
     button.place(x = 187, y = 138)
     
     button= Button(newwin, image=No, command=lambda:[newwin.destroy()],borderwidth=0, background="#1E1A1A")
@@ -216,7 +249,7 @@ def Preset_Start():
    
     # my_button = Button(root, text="Delete", command=delete)
     # my_button.pack(pady=10)
-    button1= Button(root, image=presetBlock,borderwidth=0,command=SelectWarn, bg="#FDFCDC")
+    button1= Button(root, image=presetBlock,borderwidth=0,command=timeSet, bg="#FDFCDC")
     button1.place(x = 55, y = 400)
     
     button2= Button(root, image=Delete,borderwidth=0,command=DeleteWarn, bg="#FDFCDC")
@@ -249,4 +282,4 @@ def Preset_Start():
 
 
 ######################################################################################################################################################################################
-preset()
+# preset()
