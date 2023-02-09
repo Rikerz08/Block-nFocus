@@ -79,7 +79,9 @@ def preset():
     presetList = []
     with open('webstores.txt', 'r') as f:
         for line in f:
+            #splits line elements with commas and creates it into list
             currLineList = line.split()
+            #joins all the elements of the list with comma and space
             stringLineList = (', '.join(currLineList))
             presetList.append(stringLineList)
         # presetList = [line.strip() for line in f]
@@ -160,7 +162,9 @@ def timeSet():
     #instead of select func, so that even before we input the time, there is already a stored value in the list
     #this is because we notice that when we select an element, and then double click the entry on timeSet window
     #the selection disappears thus going into the error of "if not my_listbox.curselection()"
-    global delIndex
+
+    #we initialize delIndex as 0 since it cannot be global since its initialized inside a for loop
+    delIndex = 0
     global currentPreset
     global currentPresetList
     global noDupCurrentPresetList
