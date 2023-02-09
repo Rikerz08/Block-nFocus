@@ -116,7 +116,29 @@ def unBlock(siteList):
         f.truncate()
 
 
-def checkTime(currTime, doneTime, currList, gui):
+# def checkTime(currTime, doneTime, currList, gui):
+#     print(doneTime)
+#     # while True:
+#     currTime = datetime.datetime.now()
+#     if currTime < doneTime:
+#         print("BLOCK TIME STILL ON.")
+#         # continue
+#     else:
+#         print("UNBLOCKED ALL SITES")
+#         unBlock(currList)
+#         return
+#     # If you want to update the current time in a loop and still 
+#     # be able to use a GUI, you can use the after method in Tkinter. 
+#     # The after method allows you to schedule a function to be executed after a specified number of milliseconds.
+#     # The update_time function is defined to get the current time using the datetime module and update the text of the label. 
+#     # The root.after method is used to schedule the update_time function to be executed every 1000 milliseconds (1 second), allowing the GUI to update 
+#     # the current time in real-time without blocking the GUI. 
+#     # The root.mainloop method is used to start the Tkinter event loop and keep the GUI running until it is closed by the user.
+#     gui.after(10000, checkTime, currTime, doneTime, currList, gui)
+    
+def checkTime(currTime, doneTime, currList):
+    from ForRootinit import root
+    from OngoingBlock import UnblockedMsg, ongoingBlock
     print(doneTime)
     # while True:
     currTime = datetime.datetime.now()
@@ -126,6 +148,8 @@ def checkTime(currTime, doneTime, currList, gui):
     else:
         print("UNBLOCKED ALL SITES")
         unBlock(currList)
+        UnblockedMsg()
+        root.quit()
         return
     # If you want to update the current time in a loop and still 
     # be able to use a GUI, you can use the after method in Tkinter. 
@@ -134,4 +158,6 @@ def checkTime(currTime, doneTime, currList, gui):
     # The root.after method is used to schedule the update_time function to be executed every 1000 milliseconds (1 second), allowing the GUI to update 
     # the current time in real-time without blocking the GUI. 
     # The root.mainloop method is used to start the Tkinter event loop and keep the GUI running until it is closed by the user.
-    gui.after(10000, checkTime, currTime, doneTime, currList, gui)
+    root.after(10000, checkTime, currTime, doneTime, currList)
+    #this just bruteforcing it :(
+    root.withdraw()

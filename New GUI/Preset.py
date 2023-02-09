@@ -35,8 +35,6 @@ def preset():
     global timeSetBg
     global ErrorMsgBg
     global Okay
-    global unblockedbg
-    global proceed
     preset_bg = PhotoImage(file='images/Presets.png')
     Select = PhotoImage(file='images/PresetSelect.png')
     presetBlock = PhotoImage(file='images/PresetBlock.png')
@@ -47,12 +45,11 @@ def preset():
     timeSetBg = PhotoImage(file='images/timeSetbg.png')
     Selectbg = PhotoImage(file='images/Selectbg.png')
     ErrorMsgBg = PhotoImage(file='images/ErrorBg.png')
-    unblockedbg = PhotoImage(file='images/SuccessUnblockBg.png')
     No = PhotoImage(file='images/No.png')
     Yes = PhotoImage(file='images/Yes.png')
     Back = PhotoImage(file='images/Back.png')
     Okay = PhotoImage(file='images/Okay.png')
-    proceed = PhotoImage(file='images/proceed.png')
+    
     
     
     label3 = Label(root, image= preset_bg)
@@ -79,7 +76,9 @@ def preset():
     presetList = []
     with open('webstores.txt', 'r') as f:
         for line in f:
+            #splits line elements with commas and creates it into list
             currLineList = line.split()
+            #joins all the elements of the list with comma and space
             stringLineList = (', '.join(currLineList))
             presetList.append(stringLineList)
         # presetList = [line.strip() for line in f]
@@ -160,6 +159,8 @@ def timeSet():
     #instead of select func, so that even before we input the time, there is already a stored value in the list
     #this is because we notice that when we select an element, and then double click the entry on timeSet window
     #the selection disappears thus going into the error of "if not my_listbox.curselection()"
+
+    #we initialize delIndex as 0 since it cannot be global since its initialized inside a for loop
     delIndex = 0
     global currentPreset
     global currentPresetList
@@ -243,30 +244,6 @@ def ErrorMsg():
     
     newwin.mainloop()
 
-def UnblockedMsg():
-    newwin = Toplevel(root)
-    newwin.geometry("800x200")
-    newwin.resizable(False, False)
-    
-    #making the window always pop up at the center of the screen
-    screen_width = root.winfo_screenwidth()
-    screen_height = root.winfo_screenheight()
-    
-    x = (screen_width / 2) - (800 / 2)
-    y = (screen_height / 2 ) - (200 / 2)
-    
-    newwin.geometry(f'800x200+{int(x)}+{int(y)}')
-
-    #placing the bg image by using label
-    label2 = Label(newwin, image= unblockedbg)
-    label2.place(x = 0, y = 0)
-    
-    
-    button= Button(newwin, image=proceed, command=lambda:[newwin.destroy()],borderwidth=0, background="#1E1A1A")
-    button.place(x = 310, y = 138)
-    
-    newwin.mainloop()
-
 def DeleteAllWarn():
     newwin = Toplevel(root)
     newwin.geometry("800x200")
@@ -325,7 +302,7 @@ def switch():
     # a.destroy()
     root.destroy()
     ongoingBlock()
-    
+ 
 
 
 def select():   
@@ -341,7 +318,7 @@ def select():
     current_time = datetime.datetime.now()
     timeDifference = current_time - start_time
     unblock_time += timeDifference
-    checkTime(current_time, unblock_time, currentPresetList, root)
+    checkTime(current_time, unblock_time, currentPresetList)
     
     
 def delete_all(a):
@@ -387,4 +364,4 @@ def Preset_Start():
 
 
 ######################################################################################################################################################################################
-# preset()
+preset()
