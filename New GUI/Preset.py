@@ -76,9 +76,13 @@ def preset():
     my_listbox.pack(pady=15)
     #This code is for getting the lines from the txt file and displaying them into the list box
     global presetList
-
+    presetList = []
     with open('webstores.txt', 'r') as f:
-        presetList = [line.rstrip() for line in f]
+        for line in f:
+            currLineList = line.split()
+            stringLineList = (', '.join(currLineList))
+            presetList.append(stringLineList)
+        # presetList = [line.strip() for line in f]
 
     for item in presetList:
         my_listbox.insert(END, item)
