@@ -19,6 +19,11 @@ def preset(root):
     root.destroy()
     preset()
 
+def Write(root):
+    from Preset import preset
+    root.destroy()
+    preset()
+
 
 #Making windows dimensions
 def blockScreen():

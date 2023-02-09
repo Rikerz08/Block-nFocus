@@ -143,7 +143,7 @@ def SelectWarn(a):
     label2.place(x = 0, y = 0)
     
     #creating the Understand button
-    button= Button(newwin, image=Yes, command=lambda:[select(newwin)],borderwidth=0, background="#1E1A1A")
+    button= Button(newwin, image=Yes, command=lambda:[newwin.destroy(),switch()],borderwidth=0, background="#1E1A1A")
     button.place(x = 187, y = 138)
     
     button= Button(newwin, image=No, command=lambda:[newwin.destroy()],borderwidth=0, background="#1E1A1A")
@@ -156,7 +156,7 @@ def timeSet():
     #instead of select func, so that even before we input the time, there is already a stored value in the list
     #this is because we notice that when we select an element, and then double click the entry on timeSet window
     #the selection disappears thus going into the error of "if not my_listbox.curselection()"
-    global delIndex
+    delIndex = 0
     global currentPreset
     global currentPresetList
     for item in my_listbox.curselection():
@@ -312,13 +312,23 @@ def delete(a):
     my_listbox.delete(ANCHOR)
     # my_label.config(text='')
 
-def select(a):
+
+def switch():
+    from OngoingBlock import ongoingBlock
+    select()
+    # a.destroy()
+    root.destroy()
+    ongoingBlock()
+    
+
+
+def select():   
     # if not my_listbox.curselection():
     #     print("KANI JD")
     #     return ErrorMsg()
     global timeDifference
     global unblock_time
-    a.destroy()
+    # a.destroy()
     from LogicFunctions import checkTime, writeToHost
     writeToHost(currentPresetList)
     print("WRITTEN TO HOST")
@@ -326,7 +336,8 @@ def select(a):
     timeDifference = current_time - start_time
     unblock_time += timeDifference
     checkTime(current_time, unblock_time, currentPresetList, root)
-
+    
+    
 def delete_all(a):
     with open('webstores.txt', 'w') as f:
         f.truncate(0)

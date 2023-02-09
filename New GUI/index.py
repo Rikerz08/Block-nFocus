@@ -71,9 +71,6 @@ def index(root):
     label1 = Label(root, image = bg)
     label1.place(x = 0, y = 0)
 
-    text= Label(root, text= "")
-    text.grid(column=0,row=0)
-
     #Let us create a dummy button and pass the image
     button= Button(root, image=click_btn,command=lambda:[Warning_Start(root)],borderwidth=0)
     button.grid(column=1, row=1, padx=460, pady=170)
