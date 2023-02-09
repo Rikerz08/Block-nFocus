@@ -4,14 +4,22 @@ from tkinter import *
 def write():
     global root
     root = Tk()
-    root.geometry("800x200")
-    screen_width = root.winfo_screenwidth()
-    screen_height = root.winfo_screenheight()
+    # root.geometry("800x200")
+    # screen_width = root.winfo_screenwidth()
+    # screen_height = root.winfo_screenheight()
 
-    x = (screen_width / 2) - (800 / 2)
-    y = (screen_height / 2 ) - (200 / 2)
+    # x = (screen_width / 2) - (800 / 2)
+    # y = (screen_height / 2 ) - (200 / 2)
     
-    root.geometry(f'800x200+{int(x)}+{int(y)}')
+    # root.geometry(f'800x200+{int(x)}+{int(y)}')
+    
+    global writeBg
+    global Add
+    global Remove
+    writeBg = PhotoImage(file='images/WriteBg.png')
+    Add = PhotoImage(file='images/Add.png')
+    Remove = PhotoImage(file='images/Add.png')
+    
     
     # global entry
     entry1 = Entry(root)
@@ -24,6 +32,8 @@ def write():
     entries = [entry1]
     add_button = Button(root, text="Add Input", command=add_entry)
     add_button.pack()
+    remove_button = Button(root, text="remove", command=remove_entry)
+    remove_button.pack()
     finish_button = Button(root, text="Finish", command=tba)
     finish_button.pack()
 
@@ -44,6 +54,15 @@ def add_entry():
     entry = Entry(frame)
     entry.pack()
     entries.append(entry)
+
+def remove_entry():
+    if entries:
+        entry = entries.pop()
+        entry.pack_forget()
+    return
+        
+
+
 
 def ErrorMsg():
     newwin = Toplevel(root)

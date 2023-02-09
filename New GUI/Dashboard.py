@@ -37,7 +37,7 @@ def dashboard():
     global Unblock
 
     Dashboard_bg = PhotoImage(file='images/Dashboard 4.png')
-    Block = PhotoImage(file='images/Block.png')
+    Block = PhotoImage(file='images/Block 2.png')
     Unblock = PhotoImage(file='images/Unblock.png')
 
     Dashboard_start(root)
@@ -51,8 +51,8 @@ def Dashboard_start(root):
 
     
     button= Button(root, image=Block,borderwidth=0,command=lambda:[block(root)], bg="#FDFCDC")
-    button.place(x = 200, y = 135)
+    button.place(x = 178, y = 190)
     
-    button2= Button(root, image=Unblock ,borderwidth=0,command=lambda:[unblock(root)], bg="#FDFCDC")
-    button2.place(x=128,y=257)
+    # button2= Button(root, image=Unblock ,borderwidth=0,command=lambda:[unblock(root)], bg="#FDFCDC")
+    # button2.place(x=128,y=257)
     
