@@ -32,7 +32,8 @@ def change(root):
     from Questions import Quiz
     root.destroy()
     Quiz()
-    
+
+
 #Making windows dimensions
 def ongoingBlock():
     global root
@@ -40,7 +41,7 @@ def ongoingBlock():
   # Adjust size 
     root.geometry("800x500")
     root.resizable(False, False)
-    # root.overrideredirect(True)
+    root.overrideredirect(True)
     root.title("Block'nFocus")
     
     #making the window always pop up at the center of the screen
@@ -58,7 +59,10 @@ def ongoingBlock():
     global click_btn
     global forcedUnblockBg
     global yes
-
+    global unblockedbg
+    global proceed
+    unblockedbg = PhotoImage(file='images/SuccessUnblockBg.png')
+    proceed = PhotoImage(file='images/proceed.png')
     ongoingBlockBg = PhotoImage(file = "images/OngoingBlockBg.png")
     click_btn= PhotoImage(file='images/Unblock 2.png')
     forcedUnblockBg = PhotoImage(file='images/ForcedUnblockBg.png')
@@ -70,19 +74,7 @@ def ongoingBlock():
     root.mainloop()
 
 #running the index screen
-def OngoingblockStart():
-    # from Preset import currentPresetList, start_time,unblock_time,root,datetime
-    # # # global timeDifference
-    # # # global unblock_time
-    # from LogicFunctions import checkTime, writeToHost
-    # writeToHost(currentPresetList)
-    # print("WRITTEN TO HOST")
-    # current_time = datetime.datetime.now()
-    # timeDifference = current_time - start_time
-    
-    # unblock_time += timeDifference
-    # checkTime(current_time, unblock_time, currentPresetList, root)
-    
+def OngoingblockStart():    
     label1 = Label(root, image = ongoingBlockBg)
     label1.place(x = -2, y = -2)
 
@@ -91,4 +83,28 @@ def OngoingblockStart():
     button.place(x = 318, y = 400)
     
 
-# ongoingBlock()
+# doneblock
+def UnblockedMsg():
+    root.withdraw()
+    newwin = Toplevel(root)
+    newwin.geometry("800x200")
+    newwin.resizable(False, False)
+    
+    #making the window always pop up at the center of the screen
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+    
+    x = (screen_width / 2) - (800 / 2)
+    y = (screen_height / 2 ) - (200 / 2)
+    
+    newwin.geometry(f'800x200+{int(x)}+{int(y)}')
+
+    #placing the bg image by using label
+    label2 = Label(newwin, image= unblockedbg)
+    label2.place(x = 0, y = 0)
+    
+    
+    button= Button(newwin, image=proceed, command=lambda:[root.destroy()],borderwidth=0, background="#1E1A1A")
+    button.place(x = 310, y = 138)
+    
+    newwin.mainloop()
