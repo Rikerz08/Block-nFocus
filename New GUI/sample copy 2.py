@@ -21,13 +21,13 @@ def preset():
     
     root.geometry(f'800x500+{int(x)}+{int(y)}')
     
-    global preset_bg
+    global write_bg
     global Select
     global Delete
     global DeleteAll
     global WarningDelbg
     global WarningDelAllbg
-    global Back
+    global Back2
     global No
     global Yes
     global Selectbg
@@ -35,11 +35,13 @@ def preset():
     global timeSetBg
     global ErrorMsgBg
     global Okay
-    preset_bg = PhotoImage(file='images/Presets.png')
-    Select = PhotoImage(file='images/PresetSelect.png')
+    global Add
+    global remove
+    remove = PhotoImage(file='images/Remove.png')
+    write_bg = PhotoImage(file='images/WriteBg.png')
+    Add = PhotoImage(file='images/Add.png')
     presetBlock = PhotoImage(file='images/PresetBlock.png')
     Delete = PhotoImage(file='images/PresetDelete.png')
-    DeleteAll = PhotoImage(file='images/PresetDeleteAll.png')
     WarningDelbg = PhotoImage(file='images/WarningDelete.png')
     WarningDelAllbg = PhotoImage(file='images/WarningDeleteAll.png')
     timeSetBg = PhotoImage(file='images/timeSetbg.png')
@@ -47,12 +49,12 @@ def preset():
     ErrorMsgBg = PhotoImage(file='images/ErrorBg.png')
     No = PhotoImage(file='images/No.png')
     Yes = PhotoImage(file='images/Yes.png')
-    Back = PhotoImage(file='images/Back.png')
+    Back2 = PhotoImage(file='images/Back 2.png')
     Okay = PhotoImage(file='images/Okay.png')
     
     
     
-    label3 = Label(root, image= preset_bg)
+    label3 = Label(root, image= write_bg)
     label3.place(x = -2, y = -2)
     
     
@@ -66,17 +68,17 @@ def preset():
     # Listbox!
     # SINGLE, BROWSE, MULTIPLE, EXTENDED
     global my_listbox
-    my_listbox = Listbox(my_frame, width=53,height=5, yscrollcommand=my_scrollbar.set,xscrollcommand=my_scrollbarX.set, font=('Times', 20), selectmode=SINGLE, borderwidth=0, activestyle="none")
+    my_listbox = Listbox(my_frame, width=53,height=5, yscrollcommand=my_scrollbar.set,xscrollcommand=my_scrollbarX.set, font=('Times', 21), selectmode=SINGLE, borderwidth=0, activestyle="none")
     #configure scrollbar
     my_scrollbar.config(command=my_listbox.yview)
     my_scrollbar.pack(side=RIGHT, fill=Y)
     my_scrollbarX.pack(side= BOTTOM, fill= X)
     my_scrollbarX.config(command=my_listbox.xview)
     
-    my_frame.place(x = 22, y = 100)
+    my_frame.place(x = 22, y = 124)
     my_frame.configure(background="#FFFBFD")
     
-    my_listbox.pack(pady=15)
+    my_listbox.pack(pady=0)
     #This code is for getting the lines from the txt file and displaying them into the list box
     global presetList
     presetList = []
@@ -345,19 +347,19 @@ def Preset_Start():
     # my_button = Button(root, text="Delete", command=delete)
     # my_button.pack(pady=10)
     entry1 = Entry(root, width=50, font=("Helvetica", 20))
-    entry1.place(x = 22, y = 350)
+    entry1.place(x = 22, y = 367)
     
-    button1= Button(root, image=presetBlock,borderwidth=0,command=timeSet, bg="#FDFCDC")
-    button1.place(x = 55, y = 408)
+    button1= Button(root, image=Add,borderwidth=0,command=timeSet, bg="#FDFCDC")
+    button1.place(x = 55, y = 415)
     
     button2= Button(root, image=Delete,borderwidth=0,command=DeleteWarn, bg="#FDFCDC")
-    button2.place(x = 310, y = 408)
+    button2.place(x = 310, y = 415)
     
-    button3= Button(root, image=DeleteAll,borderwidth=0,command=DeleteAllWarn, bg="#FDFCDC")
-    button3.place(x = 578, y = 408)
+    button3= Button(root, image=remove,borderwidth=0,command=DeleteAllWarn, bg="#FDFCDC")
+    button3.place(x = 578, y = 415)
     
-    button4= Button(root, image=Back,borderwidth=0,command=back, bg="#FFFBFD", border=0)
-    button4.place(x = 53, y = 53)
+    button4= Button(root, image=Back2,borderwidth=0,command=back, border=-5, background="#1E1A1A")
+    button4.place(x = 53, y = 10)
 
 
     # my_button2 = Button(root, text="Select", command=select)
