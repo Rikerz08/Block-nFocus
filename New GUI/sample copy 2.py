@@ -384,6 +384,10 @@ def select():
     from LogicFunctions import checkTime, writeToHost
     writeToHost(finalEntrySiteList)
     print("WRITTEN TO HOST")
+    with open ("webstores.txt", "a+") as f:
+        f.seek(0)
+        f.writelines(' '.join(finalEntrySiteList))
+        f.write("\n")
     current_time = datetime.datetime.now()
     timeDifference = current_time - start_time
     unblock_time += timeDifference
@@ -440,4 +444,4 @@ def Write_Start():
 
 
 ######################################################################################################################################################################################
-write()
+# write()
