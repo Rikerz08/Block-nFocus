@@ -127,9 +127,11 @@ def write():
 
     global entrySiteList
     global finalEntrySiteList
+    global noWwwList
     entrySiteList = []
     finalEntrySiteList = []
-   
+    noWwwList = []
+    # noWwwListComp = [site for site in finalEntrySiteList if "www." not in site]
    
     Write_Start()
     
@@ -229,7 +231,7 @@ def getInput():
     print("entry", entrySiteList)
     
     for item in entrySiteList.copy():
-        if item in str(finalEntrySiteList):
+        if item in noWwwList:
             print(item + " is already displayed")
             entrySiteList.clear()
             ErrorMsg()
@@ -239,7 +241,15 @@ def getInput():
             entrySiteList.remove(item)
 
     entrySiteList.clear()
+
+    #noWwwList for removing all elements in finalEntrySiteList that contains "www"
+    #since ex."reddit" is a part of "www.reddit.com" but not vice versa
+    #therefore reddit can not be inputted since its already in the list.
+    for site in finalEntrySiteList:
+        if "www." not in site and site not in str(noWwwList):
+            noWwwList.append(site)
     print("final", finalEntrySiteList)
+    print("noWWW", noWwwList)
     print("entry", entrySiteList, "\n-----------------------------------------")
 
 
@@ -447,4 +457,4 @@ def Write_Start():
 
 
 ######################################################################################################################################################################################
-# write()
+write()

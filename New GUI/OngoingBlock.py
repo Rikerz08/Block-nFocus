@@ -87,7 +87,7 @@ def OngoingblockStart():
 def UnblockedMsg():
     # from Questions import Quiz
     from Dashboard import dashboard
-    root.withdraw()
+    root.destroy()
     newwin = Toplevel(root)
     newwin.geometry("800x200")
     newwin.resizable(False, False)

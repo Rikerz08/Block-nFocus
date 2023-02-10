@@ -169,6 +169,7 @@ class QuizStart:
 
     def display_result(self):
         from LogicFunctions import unBlock
+        import datetime
         global currLineList
         score = int(self.correct / len(q) * 100)
         result = "Score: " + str(score) + "%"
@@ -176,6 +177,8 @@ class QuizStart:
         correct = "No. of correct answers: " + str(self.correct)
         wrong = "No. of wrong answers: " + str(wc)
         mb.showinfo("Result", "\n".join([result, correct, wrong]))
+        # currentTime = datetime.datetime.now()
+        # negativeTime = currentTime - datetime.timedelta(minutes=1)
         if score < 70:
             UnblockFailed()
         else:
@@ -183,6 +186,7 @@ class QuizStart:
                 for line in f:
                     currLineList = line.split()
             unBlock(currLineList)
+            # checkTime(currentTime,negativeTime,currLineList)
             UnblockedMsg()
             # root.destroy()
             

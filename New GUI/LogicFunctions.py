@@ -70,7 +70,7 @@ def unBlock(siteList):
 def checkTime(currTime, doneTime, currList):
     
     from ForRootinit import root
-    from OngoingBlock import UnblockedMsg, ongoingBlock
+    from OngoingBlock import UnblockedMsg
     print(doneTime)
     # we have to store current list to a text so that we can pull it any time regardless of var scope.
     with open('currListCache.txt', 'w') as f:
