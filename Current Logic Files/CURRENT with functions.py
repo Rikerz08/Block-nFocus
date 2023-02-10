@@ -41,12 +41,16 @@ def timeSet():
     print("Proceeding will exit all browsers. Unsaved progress will be lost.")
     killDecision = input("Do you wish to proceed or exit browsers manually? (Y/N) ")
 
+    browserList = ["chrome.exe", "firefox.exe", "opera.exe", "msedge.exe", "brave.exe"]
     if killDecision.upper() == "Y":
-        os.system("taskkill /im firefox.exe /f")
-        os.system("taskkill /im chrome.exe /f")
-        os.system("taskkill /im opera.exe /f")
-        os.system("taskkill /im msedge.exe /f") 
-        os.system("taskkill /im brave.exe /f")
+
+        for browser in browserList:
+            os.system("taskkill /im " + browser + " /f")
+        # os.system("taskkill /im firefox.exe /f")
+        # os.system("taskkill /im chrome.exe /f")
+        # os.system("taskkill /im opera.exe /f")
+        # os.system("taskkill /im msedge.exe /f") 
+        # os.system("taskkill /im brave.exe /f")
     #upon the very moment of killing the browsers, we need a new current time var to be subtracted by the start time var
     #and we need to add it to the unblock time var to make up for the time that was taken while the user was still inputting data
     inputTime = datetime.datetime.now() - start_time

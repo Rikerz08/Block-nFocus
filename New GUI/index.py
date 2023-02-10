@@ -30,6 +30,8 @@ def Warning_Start(root):
 
 #switch window
 def change(root):
+    from LogicFunctions import copyHosts
+    copyHosts()
     root.destroy()
     dashboard()
     
