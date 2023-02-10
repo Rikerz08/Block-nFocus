@@ -6,6 +6,43 @@ import datetime
 #this is just to make the code run long enough to reach the asking of user input for the minutes
 unblock_time = datetime.datetime.now() + datetime.timedelta(minutes=525600)
 
+def BrowserExitWarn():
+    newwin = Toplevel(root)
+    newwin.geometry("800x200")
+    newwin.resizable(False, False)
+    
+    #making the window always pop up at the center of the screen
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()   
+    
+    x = (screen_width / 2) - (800 / 2)
+    y = (screen_height / 2 ) - (200 / 2)
+    
+    newwin.geometry(f'800x200+{int(x)}+{int(y)}')
+
+    #placing the bg image by using label
+    label2 = Label(newwin, image= BrowserExitWarnBg)
+    label2.place(x = 0, y = 0)
+    
+    #creating the Understand button
+    button= Button(newwin, image=Proceed, command=lambda:[delete(newwin)],borderwidth=0, background="#1E1A1A")
+    button.place(x = 187, y = 138)
+    
+    button= Button(newwin, image=ManuallyClose, command=lambda:[switchScreen()],borderwidth=0, background="#1E1A1A")
+    button.place(x = 430, y = 138)
+    
+    newwin.mainloop()
+
+def switchScreen():
+    from OngoingBlock import ongoingBlock
+    select()
+    # a.destroy()
+    root.destroy()
+    ongoingBlock()
+    
+
+
+
 def preset():
     global root
     root = Tk()
@@ -37,6 +74,13 @@ def preset():
     global Okay
     global Add
     global remove
+    global BrowserExitWarnBg
+    global Proceed
+    global ManuallyClose
+    
+    ManuallyClose = PhotoImage(file='images/ManuallyClose.png')
+    Proceed = PhotoImage(file='images/Proceed.png')
+    BrowserExitWarnBg = PhotoImage(file='images/BrowserExitWarnBg.png')
     remove = PhotoImage(file='images/Remove.png')
     write_bg = PhotoImage(file='images/WriteBg.png')
     Add = PhotoImage(file='images/Add.png')
@@ -349,13 +393,13 @@ def Preset_Start():
     entry1 = Entry(root, width=50, font=("Helvetica", 20))
     entry1.place(x = 22, y = 367)
     
-    button1= Button(root, image=Add,borderwidth=0,command=timeSet, bg="#FDFCDC")
+    button1= Button(root, image=Add,borderwidth=0, bg="#FDFCDC")
     button1.place(x = 55, y = 415)
     
     button2= Button(root, image=Delete,borderwidth=0,command=DeleteWarn, bg="#FDFCDC")
     button2.place(x = 310, y = 415)
     
-    button3= Button(root, image=presetBlock,borderwidth=0,command=DeleteAllWarn, bg="#FDFCDC")
+    button3= Button(root, image=presetBlock,borderwidth=0,command=BrowserExitWarn, bg="#FDFCDC")
     button3.place(x = 578, y = 415)
     
     button4= Button(root, image=Back2,borderwidth=0,command=back, border=-5, background="#1E1A1A")
