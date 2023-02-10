@@ -1,15 +1,15 @@
 {
     "ques":[
-        "1.) What is 1+1?",
-        "2.) is the earth round?",
-        "3.) what is 2+3?",
-        "4. why should we gym"
+        "1.) What has to be broken before you can use it?",
+        "2.) What question can you never answer yes to",
+        "3.) What month of the year has 28 days?",
+        "4.) What is full of holes but still holds water?"
     ],
     "options":[
-        ["2", "3","4","5"],
-        ["no","yes","maybe","dont care"],
-        ["dunno","5","11","none of the below"],
-        ["cause why not?","moms spaghetti","fly me to the moon","i dunno"]
+        ["Egg", "Glass","Pot","Love"],
+        ["Are you hungry?","Are you asleep yet?","Are you Strong?","Did you Fart?"],
+        ["January","Febuary","december","All of the above"],
+        ["paper","Cup","Sponge","All of them"]
     ],
-    "ans":[1,2,2,1]
+    "ans":[1,2,4,3]
 }

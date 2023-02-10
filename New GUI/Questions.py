@@ -39,7 +39,7 @@ def Quiz():
     Question_bg = PhotoImage(file='images/Question.png')
 
     label3 = Label(root, image= Question_bg)
-    label3.place(x = 0, y = 0)
+    label3.place(x = -2, y = -2)
     
     
     QuizStart()
@@ -59,6 +59,7 @@ class QuizStart:
         # t = Label(root, text="Quiz in Python Programming", width=50, bg="blue", fg="white", font=("times", 20, "bold"))
         # t.place(x=0, y=2)
         qn = Label(root, text=q[qn], width=60, font=("Arial", 16, "bold"), anchor="w", bg="#FDFCDC")
+
         qn.place(x=70, y=115)
         return qn
 
@@ -67,7 +68,7 @@ class QuizStart:
         b = []
         yp = 160
         while val < 4:
-            btn = Radiobutton(root, text=" ", variable=self.opt_selected, value=val + 1, font=("Arial", 14),bg="#FDFCDC")
+            btn = Radiobutton(root, text=" ", variable=self.opt_selected, value=val + 1, font=("Arial", 14), bg="#FDFCDC")
             b.append(btn)
             btn.place(x=100, y=yp)
             val += 1
@@ -109,8 +110,15 @@ class QuizStart:
         correct = "No. of correct answers: " + str(self.correct)
         wrong = "No. of wrong answers: " + str(wc)
         mb.showinfo("Result", "\n".join([result, correct, wrong]))
-    
-
+        if score < 70:
+            print("haha")
+        else:
+            print("Goods")
+            
+            
+            
+        
+Quiz()
         
 
 
