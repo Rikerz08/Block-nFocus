@@ -6,6 +6,44 @@ import datetime
 #this is just to make the code run long enough to reach the asking of user input for the minutes
 unblock_time = datetime.datetime.now() + datetime.timedelta(minutes=525600)
 
+def BrowserExitWarn():
+    from LogicFunctions import killBrowsers
+    newwin = Toplevel(root)
+    newwin.geometry("800x200")
+    newwin.resizable(False, False)
+    
+    #making the window always pop up at the center of the screen
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()   
+    
+    x = (screen_width / 2) - (800 / 2)
+    y = (screen_height / 2 ) - (200 / 2)
+    
+    newwin.geometry(f'800x200+{int(x)}+{int(y)}')
+
+    #placing the bg image by using label
+    label2 = Label(newwin, image= BrowserExitWarnBg)
+    label2.place(x = -2, y = -2)
+    
+    #creating the Understand button
+    button= Button(newwin, image=Proceed, command=lambda:[delete(newwin), killBrowsers(),switch()],borderwidth=0, background="#1E1A1A")
+    button.place(x = 187, y = 138)
+    
+    button= Button(newwin, image=ManuallyClose, command=lambda:[switch()],borderwidth=0, background="#1E1A1A")
+    button.place(x = 430, y = 138)
+    
+    newwin.mainloop()
+
+def switchScreen():
+    from OngoingBlock import ongoingBlock
+    select()
+    # a.destroy()
+    root.destroy()
+    ongoingBlock()
+    
+
+
+
 def write():
     global root
     root = Tk()
@@ -21,13 +59,13 @@ def write():
     
     root.geometry(f'800x500+{int(x)}+{int(y)}')
     
-    global preset_bg
+    global write_bg
     global Select
     global Delete
     global DeleteAll
     global WarningDelbg
     global WarningDelAllbg
-    global Back
+    global Back2
     global No
     global Yes
     global Selectbg
@@ -35,11 +73,20 @@ def write():
     global timeSetBg
     global ErrorMsgBg
     global Okay
-    preset_bg = PhotoImage(file='images/Presets.png')
-    Select = PhotoImage(file='images/PresetSelect.png')
+    global Add
+    global remove
+    global BrowserExitWarnBg
+    global Proceed
+    global ManuallyClose
+    
+    ManuallyClose = PhotoImage(file='images/ManuallyClose.png')
+    Proceed = PhotoImage(file='images/Proceed.png')
+    BrowserExitWarnBg = PhotoImage(file='images/BrowserExitWarnBg.png')
+    remove = PhotoImage(file='images/Remove.png')
+    write_bg = PhotoImage(file='images/WriteBg.png')
+    Add = PhotoImage(file='images/Add.png')
     presetBlock = PhotoImage(file='images/PresetBlock.png')
     Delete = PhotoImage(file='images/PresetDelete.png')
-    DeleteAll = PhotoImage(file='images/PresetDeleteAll.png')
     WarningDelbg = PhotoImage(file='images/WarningDelete.png')
     WarningDelAllbg = PhotoImage(file='images/WarningDeleteAll.png')
     timeSetBg = PhotoImage(file='images/timeSetbg.png')
@@ -47,12 +94,12 @@ def write():
     ErrorMsgBg = PhotoImage(file='images/ErrorBg.png')
     No = PhotoImage(file='images/No.png')
     Yes = PhotoImage(file='images/Yes.png')
-    Back = PhotoImage(file='images/Back.png')
+    Back2 = PhotoImage(file='images/Back 2.png')
     Okay = PhotoImage(file='images/Okay.png')
     
     
     
-    label3 = Label(root, image= preset_bg)
+    label3 = Label(root, image= write_bg)
     label3.place(x = -2, y = -2)
     
     
@@ -66,37 +113,25 @@ def write():
     # Listbox!
     # SINGLE, BROWSE, MULTIPLE, EXTENDED
     global my_listbox
-    my_listbox = Listbox(my_frame, width=53,height=5, yscrollcommand=my_scrollbar.set,xscrollcommand=my_scrollbarX.set, font=('Times', 20), selectmode=SINGLE, borderwidth=0, activestyle="none")
+    my_listbox = Listbox(my_frame, width=53,height=5, yscrollcommand=my_scrollbar.set,xscrollcommand=my_scrollbarX.set, font=('Times', 21), selectmode=SINGLE, borderwidth=0, activestyle="none")
     #configure scrollbar
     my_scrollbar.config(command=my_listbox.yview)
     my_scrollbar.pack(side=RIGHT, fill=Y)
     my_scrollbarX.pack(side= BOTTOM, fill= X)
     my_scrollbarX.config(command=my_listbox.xview)
     
-    my_frame.place(x = 22, y = 100)
+    my_frame.place(x = 22, y = 124)
     my_frame.configure(background="#FFFBFD")
     
-    my_listbox.pack(pady=15)
+    my_listbox.pack(pady=0)
 
-    
-    # with open('webstores.txt', 'r') as f:
-    #     for line in f:
-    #         #splits line elements with commas and creates it into list
-    #         currLineList = line.split()
-    #         #joins all the elements of the list with comma and space
-    #         stringLineList = (', '.join(currLineList))
-    #         entrySiteList.append(stringLineList)
-    #     # presetList = [line.strip() for line in f]
     global entrySiteList
     global finalEntrySiteList
     entrySiteList = []
     finalEntrySiteList = []
-    #remove duplications
-    # noDupEntrySiteList = list(dict.fromkeys(entrySiteList))
-    # for item in noDupEntrySiteList:
-    #     my_listbox.insert(END, item)
-    
-    Preset_Start()
+
+   
+    Write_Start()
     
     root.mainloop()
 
@@ -125,7 +160,7 @@ def DeleteWarn():
 
     #placing the bg image by using label
     label2 = Label(newwin, image= WarningDelbg)
-    label2.place(x = 0, y = 0)
+    label2.place(x = -2, y = -2)
     
     #creating the Understand button
     button= Button(newwin, image=Yes, command=lambda:[delete(newwin)],borderwidth=0, background="#1E1A1A")
@@ -153,10 +188,10 @@ def SelectWarn(a):
 
     #placing the bg image by using label
     label2 = Label(newwin, image= Selectbg)
-    label2.place(x = 0, y = 0)
+    label2.place(x = -2, y = -2)
     
     #creating the Understand button
-    button= Button(newwin, image=Yes, command=lambda:[newwin.destroy()],borderwidth=0, background="#1E1A1A")
+    button= Button(newwin, image=Yes, command=lambda:[newwin.destroy(),BrowserExitWarn()],borderwidth=0, background="#1E1A1A")
     button.place(x = 187, y = 138)
     
     button= Button(newwin, image=No, command=lambda:[newwin.destroy()],borderwidth=0, background="#1E1A1A")
@@ -192,7 +227,6 @@ def getInput():
         entrySiteList.append(siteValue)
         entrySiteList.append("www." + siteValue)
     print("entry", entrySiteList)
-
     
     for item in entrySiteList.copy():
         if item in str(finalEntrySiteList):
@@ -208,77 +242,6 @@ def getInput():
     print("final", finalEntrySiteList)
     print("entry", entrySiteList, "\n-----------------------------------------")
 
-# def timeSet():
-#     #We initialized the selection for the currentpreset here in timeSet func
-#     #instead of select func, so that even before we input the time, there is already a stored value in the list
-#     #this is because we notice that when we select an element, and then double click the entry on timeSet window
-#     #the selection disappears thus going into the error of "if not my_listbox.curselection()"
-#     #we initialize delIndex as 0 since it cannot be global since its initialized inside a for loop
-#     delIndex = 0
-#     global currentPreset
-#     global currentPresetList
-#     global noDupCurrentPresetList
-#     for item in my_listbox.curselection():
-#         delIndex = (item+1)
-#     currentPreset = linecache.getline("webstores.txt", delIndex)
-#     currentPresetList = currentPreset.split()
-#     noDupCurrentPresetList = list(dict.fromkeys(currentPresetList))
-#     #If no item is selected, then just not run the function
-#     if not my_listbox.curselection():
-#         return ErrorMsg()
-#     global timeInput
-#     # a.destroy()
-#     newwin = Toplevel(root)
-#     newwin.geometry("800x200")
-#     newwin.resizable(False, False)
-    
-#     #making the window always pop up at the center of the screen
-#     screen_width = root.winfo_screenwidth()
-#     screen_height = root.winfo_screenheight()
-    
-#     x = (screen_width / 2) - (800 / 2)
-#     y = (screen_height / 2 ) - (200 / 2)
-    
-#     newwin.geometry(f'800x200+{int(x)}+{int(y)}')
-
-#     #placing the bg image by using label
-#     label2 = Label(newwin, image= timeSetBg)
-#     label2.place(x = 0, y = 0)
-    
-#     timeInput = Entry(newwin, font="Arial 45")
-#     timeInput.place(x = 180, y = 70, width=200, height=50)
-    
-#     #creating the Understand button
-#     button= Button(newwin, image=presetBlock, command=lambda:[timeSet2(newwin)],borderwidth=0, background="#524B62")
-#     button.place(x = 187, y = 138)
-    
-#     button= Button(newwin, image=No, command=lambda:[newwin.destroy()],borderwidth=0, background="#524B62")
-#     button.place(x = 430, y = 138)
-    
-#     newwin.mainloop()
-
-# def timeSet2(a):
-#     timeValue = timeInput.get()
-#     global start_time
-#     global unblock_time
-#     while True:
-#         try:
-#             interval = float(timeValue)
-#             #convert interval to string so that it can be checked with rsplit since float
-#             #doesnt have .rsplit attributes
-#             strInterval = str(interval)
-#             if len(strInterval.rsplit('.')[-1]) != 2:
-#                 print("Please enter a value with only 2 decimal places.")
-#                 ErrorMsg()
-#                 continue
-#             break
-#         except ValueError:
-#             ErrorMsg()
-#     start_time = datetime.datetime.now()
-#     unblock_time = start_time + datetime.timedelta(minutes=interval)
-#     SelectWarn(a)
-#     # from LogicFunctions import timeSetLogic
-#     # timeSetLogic(timeInput)
 
 def ErrorMsg():
     newwin = Toplevel(root)
@@ -296,7 +259,7 @@ def ErrorMsg():
 
     #placing the bg image by using label
     label2 = Label(newwin, image= ErrorMsgBg)
-    label2.place(x = 0, y = 0)
+    label2.place(x = -2, y = -2)
     
     
     button= Button(newwin, image=Okay, command=lambda:[newwin.destroy()],borderwidth=0, background="#1E1A1A")
@@ -304,7 +267,54 @@ def ErrorMsg():
     
     newwin.mainloop()
 
-def DeleteAllWarn():
+# def DeleteAllWarn():
+#     if len(finalEntrySiteList) == 0:
+#         ErrorMsg()
+#     newwin = Toplevel(root)
+#     newwin.geometry("800x200")
+#     newwin.resizable(False, False)
+    
+#     #making the window always pop up at the center of the screen
+#     screen_width = root.winfo_screenwidth()
+#     screen_height = root.winfo_screenheight()
+    
+#     x = (screen_width / 2) - (800 / 2)
+#     y = (screen_height / 2 ) - (200 / 2)
+    
+#     newwin.geometry(f'800x200+{int(x)}+{int(y)}')
+
+#     #placing the bg image by using label
+#     label2 = Label(newwin, image= WarningDelAllbg)
+#     label2.place(x = 0, y = 0)
+    
+#     #creating the Understand button
+#     button= Button(newwin, image=Yes, command=lambda:[newwin.destroy(),timeSet()],borderwidth=0, background="#1E1A1A")
+#     button.place(x = 187, y = 138)
+    
+#     button= Button(newwin, image=No, command=lambda:[newwin.destroy()],borderwidth=0, background="#1E1A1A")
+#     button.place(x = 430, y = 138)
+    
+#     newwin.mainloop()
+        
+def delete(a):
+	#curselection will capture the current selection in the listbox by iterating thru it
+	#then we assign the index to a variable in order for it to be deleted in webfile
+    delValue = 0
+    for item in my_listbox.curselection():
+        delValue = item
+    finalEntrySiteList.pop(delValue)
+
+    a.destroy()
+    my_listbox.delete(ANCHOR)
+    # my_label.config(text='')
+    print(finalEntrySiteList)
+
+
+
+def timeSet():
+    if len(finalEntrySiteList) == 0:
+        ErrorMsg()
+    global timeInput
     newwin = Toplevel(root)
     newwin.geometry("800x200")
     newwin.resizable(False, False)
@@ -319,94 +329,97 @@ def DeleteAllWarn():
     newwin.geometry(f'800x200+{int(x)}+{int(y)}')
 
     #placing the bg image by using label
-    label2 = Label(newwin, image= WarningDelAllbg)
-    label2.place(x = 0, y = 0)
+    label2 = Label(newwin, image= timeSetBg)
+    label2.place(x = -2, y = -2)
+    
+    timeInput = Entry(newwin, font="Arial 45")
+    timeInput.place(x = 180, y = 70, width=200, height=50)
     
     #creating the Understand button
-    button= Button(newwin, image=Yes, command=lambda:[delete_all(newwin)],borderwidth=0, background="#1E1A1A")
+    button= Button(newwin, image=presetBlock, command=lambda:[timeSet2(newwin)],borderwidth=0, background="#524B62")
     button.place(x = 187, y = 138)
     
-    button= Button(newwin, image=No, command=lambda:[newwin.destroy()],borderwidth=0, background="#1E1A1A")
+    button= Button(newwin, image=No, command=lambda:[newwin.destroy()],borderwidth=0, background="#524B62")
     button.place(x = 430, y = 138)
     
     newwin.mainloop()
-        
-def delete(a):
-	#curselection will capture the current selection in the listbox by iterating thru it
-	#then we assign the index to a variable in order for it to be deleted in webfile
 
-    for item in my_listbox.curselection():
-        delValue = item
-    finalEntrySiteList.pop(delValue)
-    # lines = []
-    # # read file
-    # with open("webstores.txt", 'r') as fp:
-    #     # read an store all lines into list
-    #     lines = fp.readlines()
-    # # Write file
-    # with open("webstores.txt", 'w') as fp:
-    #     # iterate each line
-    #     for number, line in enumerate(lines):
-    #         # delete line 5 and 8. or pass any Nth line you want to remove
-    #         # note list index starts from 0
-    #         if number not in [delIndex-1]:
-    #             fp.write(line)
-    a.destroy()
-    my_listbox.delete(ANCHOR)
-    # my_label.config(text='')
-    print(finalEntrySiteList)
+def timeSet2(a):
+    timeValue = timeInput.get()
+    global start_time
+    global unblock_time
+    while True:
+        try:
+            interval = float(timeValue)
+            #convert interval to string so that it can be checked with rsplit since float
+            #doesnt have .rsplit attributes
+            strInterval = str(interval)
+            if len(strInterval.rsplit('.')[-1]) > 2:
+                print("Please enter a value with only 2 decimal places.")
+                ErrorMsg()
+                continue
+            break
+        except ValueError:
+            ErrorMsg()
+    start_time = datetime.datetime.now()
+    unblock_time = start_time + datetime.timedelta(minutes=interval)
+    SelectWarn(a)
+    # from LogicFunctions import timeSetLogic
+    # timeSetLogic(timeInput)
 
-
-# def switch():
-#     from OngoingBlock import ongoingBlock
-#     select()
-#     # a.destroy()
-#     root.destroy()
-#     ongoingBlock()
+def switch():
+    from OngoingBlock import ongoingBlock
+    select()
+    # a.destroy()
+    root.destroy()
+    ongoingBlock()
  
 
 
-# def select():   
-#     # if not my_listbox.curselection():
-#     #     print("KANI JD")
-#     #     return ErrorMsg()
-#     global timeDifference
-#     global unblock_time
-#     # a.destroy()
-#     from LogicFunctions import checkTime, writeToHost
-#     writeToHost(noDupCurrentPresetList)
-#     print("WRITTEN TO HOST")
-#     current_time = datetime.datetime.now()
-#     timeDifference = current_time - start_time
-#     unblock_time += timeDifference
-#     checkTime(current_time, unblock_time, currentPresetList)
+def select():   
+    # if not my_listbox.curselection():
+    #     print("KANI JD")
+    #     return ErrorMsg()
+    global timeDifference
+    global unblock_time
+    # a.destroy()
+    from LogicFunctions import checkTime, writeToHost
+    writeToHost(finalEntrySiteList)
+    print("WRITTEN TO HOST")
+    current_time = datetime.datetime.now()
+    timeDifference = current_time - start_time
+    unblock_time += timeDifference
+    checkTime(current_time, unblock_time, finalEntrySiteList)
     
     
-def delete_all(a):
-    with open('webstores.txt', 'w') as f:
-        f.truncate(0)
-    a.destroy()
-    my_listbox.delete(0, END)
+# def delete_all(a):
+#     with open('webstores.txt', 'w') as f:
+#         f.truncate(0)
+#     a.destroy()
+#     my_listbox.delete(0, END)
+
+# def blockWebsites():
+#     from Preset import timeSet, timeSet2, select
+#     timeSet()
   
-def Preset_Start():
-   
+def Write_Start():
     # my_button = Button(root, text="Delete", command=delete)
     # my_button.pack(pady=10)
     global entry1
     entry1 = Entry(root, width=50, font=("Helvetica", 20))
-    entry1.place(x = 22, y = 350)
+    entry1.place(x = 22, y = 367)
     
-    button1= Button(root, image=presetBlock,borderwidth=0,command=getInput, bg="#FDFCDC")
-    button1.place(x = 55, y = 408)
+    button1= Button(root, image=Add,borderwidth=0,command=getInput, bg="#FDFCDC")
+    button1.place(x = 55, y = 415)
     
     button2= Button(root, image=Delete,borderwidth=0,command=DeleteWarn, bg="#FDFCDC")
-    button2.place(x = 310, y = 408)
+    button2.place(x = 310, y = 415)
     
-    button3= Button(root, image=DeleteAll,borderwidth=0,command=DeleteAllWarn, bg="#FDFCDC")
-    button3.place(x = 578, y = 408)
+    button3= Button(root, image=presetBlock,borderwidth=0,command=timeSet, bg="#FDFCDC")
+    button3.place(x = 578, y = 415)
     
-    button4= Button(root, image=Back,borderwidth=0,command=back, bg="#FFFBFD", border=0)
-    button4.place(x = 53, y = 53)
+    button4= Button(root, image=Back2,borderwidth=0,command=back, border=-5, background="#1E1A1A")
+    button4.place(x = 53, y = 10)
 
 
     # my_button2 = Button(root, text="Select", command=select)
@@ -429,4 +442,4 @@ def Preset_Start():
 
 
 ######################################################################################################################################################################################
-write()
+# write()

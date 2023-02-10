@@ -9,7 +9,58 @@ def changeToDash(root):
     root.destroy()
     dashboard()
 
+def UnblockedMsg():
+    from Dashboard import dashboard
+    root.withdraw()
+    newwin = Toplevel(root)
+    newwin.geometry("800x200")
+    newwin.resizable(False, False)
+    newwin.overrideredirect(True)
+    
+    #making the window always pop up at the center of the screen
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+    
+    x = (screen_width / 2) - (800 / 2)
+    y = (screen_height / 2 ) - (200 / 2)
+    
+    newwin.geometry(f'800x200+{int(x)}+{int(y)}')
 
+    #placing the bg image by using label
+    label2 = Label(newwin, image= unblockedbg)
+    label2.place(x = -2, y = -2)
+    
+    
+    button= Button(newwin, image=proceed, command=lambda:[root.destroy(),dashboard()],borderwidth=0, background="#1E1A1A")
+    button.place(x = 310, y = 138)
+    
+    newwin.mainloop()
+
+
+def UnblockFailed():
+    newwin = Toplevel(root)
+    newwin.geometry("800x200")
+    newwin.resizable(False, False)
+    newwin.overrideredirect(True)
+    
+    #making the window always pop up at the center of the screen
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+    
+    x = (screen_width / 2) - (800 / 2)
+    y = (screen_height / 2 ) - (200 / 2)
+    
+    newwin.geometry(f'800x200+{int(x)}+{int(y)}')
+
+    #placing the bg image by using label
+    label2 = Label(newwin, image= UnblockFailedbg)
+    label2.place(x = -2, y = -2)
+    
+    
+    button= Button(newwin, image=ISuck, command=lambda:[root.destroy()],borderwidth=0, background="#1E1A1A")
+    button.place(x = 310, y = 138)
+    
+    newwin.mainloop()
     
 def Quiz():
     global root
@@ -35,8 +86,18 @@ def Quiz():
     options = (obj['options'])
     a = (obj['ans'])
     
+    
+    
     global Question_bg
+    global UnblockFailedbg
+    global ISuck
+    global unblockedbg
+    global proceed
+    proceed = PhotoImage(file='images/proceed.png')
+    unblockedbg = PhotoImage(file='images/SuccessUnblockBg.png')
     Question_bg = PhotoImage(file='images/Question.png')
+    UnblockFailedbg = PhotoImage(file='images/UnblockFailedBg.png')
+    ISuck = PhotoImage(file='images/I Suck.png')
 
     label3 = Label(root, image= Question_bg)
     label3.place(x = -2, y = -2)
@@ -86,7 +147,7 @@ class QuizStart:
     def buttons(self):
         nbutton = Button(root, text="Next",command=self.nextbtn, width=10,bg="green",fg="white",font=("Roboto",16,"bold"))
         nbutton.place(x=200,y=380)
-        quitbutton = Button(root, text="Quit", command= lambda:[changeToDash(root)] ,width=10,bg="red",fg="white", font=("Roboto",16,"bold"))
+        quitbutton = Button(root, text="Quit", command= lambda:[root.destroy()] ,width=10,bg="red",fg="white", font=("Roboto",16,"bold"))
         quitbutton.place(x=380,y=380)
 
     def checkans(self, qn):
@@ -104,6 +165,8 @@ class QuizStart:
         
 
     def display_result(self):
+        from LogicFunctions import unBlock
+        global currLineList
         score = int(self.correct / len(q) * 100)
         result = "Score: " + str(score) + "%"
         wc = len(q) - self.correct
@@ -111,14 +174,17 @@ class QuizStart:
         wrong = "No. of wrong answers: " + str(wc)
         mb.showinfo("Result", "\n".join([result, correct, wrong]))
         if score < 70:
-            print("haha")
+            UnblockFailed()
         else:
-            print("Goods")
+            with open("currListCache.txt", "r") as f:
+                for line in f:
+                    currLineList = line.split()
+            unBlock(currLineList)
+            UnblockedMsg()
+            # root.destroy()
             
-            
-            
-        
-Quiz()
+                  
+# Quiz()
         
 
 
