@@ -38,6 +38,7 @@ def UnblockedMsg():
 
 
 def UnblockFailed():
+    from OngoingBlock import ongoingBlock
     newwin = Toplevel(root)
     newwin.geometry("800x200")
     newwin.resizable(False, False)
@@ -57,7 +58,7 @@ def UnblockFailed():
     label2.place(x = -2, y = -2)
     
     
-    button= Button(newwin, image=ISuck, command=lambda:[root.destroy()],borderwidth=0, background="#1E1A1A")
+    button= Button(newwin, image=ISuck, command=lambda:[root.destroy(), ongoingBlock()],borderwidth=0, background="#1E1A1A")
     button.place(x = 310, y = 138)
     
     newwin.mainloop()
@@ -67,6 +68,7 @@ def Quiz():
     root = Tk()
     root.geometry("800x500")
     root.title("Quiz")
+    root.overrideredirect(True)
     
     screen_width = root.winfo_screenwidth()
     screen_height = root.winfo_screenheight()
@@ -145,9 +147,10 @@ class QuizStart:
               val += 1
 
     def buttons(self):
+        from OngoingBlock import ongoingBlock
         nbutton = Button(root, text="Next",command=self.nextbtn, width=10,bg="green",fg="white",font=("Roboto",16,"bold"))
         nbutton.place(x=200,y=380)
-        quitbutton = Button(root, text="Quit", command= lambda:[root.destroy()] ,width=10,bg="red",fg="white", font=("Roboto",16,"bold"))
+        quitbutton = Button(root, text="Quit", command= lambda:[root.destroy(),ongoingBlock()] ,width=10,bg="red",fg="white", font=("Roboto",16,"bold"))
         quitbutton.place(x=380,y=380)
 
     def checkans(self, qn):

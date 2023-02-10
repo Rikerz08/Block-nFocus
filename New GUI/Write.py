@@ -129,7 +129,7 @@ def write():
     global finalEntrySiteList
     entrySiteList = []
     finalEntrySiteList = []
-
+   
    
     Write_Start()
     
