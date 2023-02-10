@@ -66,7 +66,7 @@ def preset():
     # Listbox!
     # SINGLE, BROWSE, MULTIPLE, EXTENDED
     global my_listbox
-    my_listbox = Listbox(my_frame, width=53,height=8, yscrollcommand=my_scrollbar.set,xscrollcommand=my_scrollbarX.set, font=('Times', 20), selectmode=SINGLE, borderwidth=0, activestyle="none")
+    my_listbox = Listbox(my_frame, width=53,height=5, yscrollcommand=my_scrollbar.set,xscrollcommand=my_scrollbarX.set, font=('Times', 20), selectmode=SINGLE, borderwidth=0, activestyle="none")
     #configure scrollbar
     my_scrollbar.config(command=my_listbox.yview)
     my_scrollbar.pack(side=RIGHT, fill=Y)
@@ -220,7 +220,7 @@ def timeSet2(a):
             #convert interval to string so that it can be checked with rsplit since float
             #doesnt have .rsplit attributes
             strInterval = str(interval)
-            if len(strInterval.rsplit('.')[-1]) > 2:
+            if len(strInterval.rsplit('.')[-1]) != 2:
                 print("Please enter a value with only 2 decimal places.")
                 ErrorMsg()
                 continue
@@ -344,6 +344,9 @@ def Preset_Start():
    
     # my_button = Button(root, text="Delete", command=delete)
     # my_button.pack(pady=10)
+    entry1 = Entry(root, width=50, font=("Helvetica", 20))
+    entry1.place(x = 22, y = 350)
+    
     button1= Button(root, image=presetBlock,borderwidth=0,command=timeSet, bg="#FDFCDC")
     button1.place(x = 55, y = 408)
     
