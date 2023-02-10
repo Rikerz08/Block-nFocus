@@ -6,6 +6,35 @@ import datetime
 #this is just to make the code run long enough to reach the asking of user input for the minutes
 unblock_time = datetime.datetime.now() + datetime.timedelta(minutes=525600)
 
+
+def BrowserExitWarn():
+    from LogicFunctions import killBrowsers
+    newwin = Toplevel(root)
+    newwin.geometry("800x200")
+    newwin.resizable(False, False)
+    
+    #making the window always pop up at the center of the screen
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()   
+    
+    x = (screen_width / 2) - (800 / 2)
+    y = (screen_height / 2 ) - (200 / 2)
+    
+    newwin.geometry(f'800x200+{int(x)}+{int(y)}')
+
+    #placing the bg image by using label
+    label2 = Label(newwin, image= BrowserExitWarnBg)
+    label2.place(x = -2, y = -2)
+    
+    #creating the Understand button
+    button= Button(newwin, image=Proceed, command=lambda:[delete(newwin), killBrowsers(),switch()],borderwidth=0, background="#1E1A1A")
+    button.place(x = 187, y = 138)
+    
+    button= Button(newwin, image=ManuallyClose, command=lambda:[switch()],borderwidth=0, background="#1E1A1A")
+    button.place(x = 430, y = 138)
+    
+    newwin.mainloop()
+
 def preset():
     global root
     root = Tk()
@@ -35,6 +64,13 @@ def preset():
     global timeSetBg
     global ErrorMsgBg
     global Okay
+    global BrowserExitWarnBg
+    global Proceed
+    global ManuallyClose
+    
+    ManuallyClose = PhotoImage(file='images/ManuallyClose.png')
+    Proceed = PhotoImage(file='images/Proceed.png')
+    BrowserExitWarnBg = PhotoImage(file='images/BrowserExitWarnBg.png')
     preset_bg = PhotoImage(file='images/Presets.png')
     Select = PhotoImage(file='images/PresetSelect.png')
     presetBlock = PhotoImage(file='images/PresetBlock.png')
@@ -152,7 +188,7 @@ def SelectWarn(a):
     label2.place(x = -2, y = -2)
     
     #creating the Understand button
-    button= Button(newwin, image=Yes, command=lambda:[newwin.destroy(),switch()],borderwidth=0, background="#1E1A1A")
+    button= Button(newwin, image=Yes, command=lambda:[newwin.destroy(),BrowserExitWarn()],borderwidth=0, background="#1E1A1A")
     button.place(x = 187, y = 138)
     
     button= Button(newwin, image=No, command=lambda:[newwin.destroy()],borderwidth=0, background="#1E1A1A")

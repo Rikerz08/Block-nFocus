@@ -3,7 +3,7 @@ from PIL import Image
 
 
 #----------- Warning window
-def ForcedUnblockWarn(root):
+def ForcedUnblockWarn():
     newwin = Toplevel(root)
     newwin.geometry("800x200")
     newwin.resizable(False, False)
@@ -22,13 +22,13 @@ def ForcedUnblockWarn(root):
     label2.place(x = -2, y = -2)
     
     #creating the Understand button
-    button= Button(newwin, image=yes, command=lambda:[change(root)],borderwidth=0)
+    button= Button(newwin, image=yes, command=lambda:[change()],borderwidth=0)
     button.grid(column=1, row=1, padx=305, pady=142)
     
     newwin.mainloop()
 
 #switch window
-def change(root):
+def change():
     from Questions import Quiz
     root.destroy()
     Quiz()
@@ -79,12 +79,13 @@ def OngoingblockStart():
     label1.place(x = -2, y = -2)
 
     #Let us create a dummy button and pass the image
-    button= Button(root, image=click_btn,command=lambda:[ForcedUnblockWarn(root)],borderwidth=0, background="#000000")
+    button= Button(root, image=click_btn,command=lambda:[ForcedUnblockWarn()],borderwidth=0, background="#000000")
     button.place(x = 318, y = 400)
     
 
 # doneblock
 def UnblockedMsg():
+    # from Questions import Quiz
     from Dashboard import dashboard
     root.withdraw()
     newwin = Toplevel(root)
@@ -106,7 +107,7 @@ def UnblockedMsg():
     label2.place(x = -2, y = -2)
     
     
-    button= Button(newwin, image=proceed, command=lambda:[root.destroy(),dashboard()],borderwidth=0, background="#1E1A1A")
+    button= Button(newwin, image=proceed, command=lambda:[root.destroy(), dashboard()],borderwidth=0, background="#1E1A1A")
     button.place(x = 310, y = 138)
     
     newwin.mainloop()
