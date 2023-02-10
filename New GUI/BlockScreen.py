@@ -60,7 +60,7 @@ def blockScreen():
 def BlockScreen_Start(root):
 
     label3 = Label(root, image= Block_bg)
-    label3.place(x = 0, y = 0)
+    label3.place(x = -2, y = -2)
 
     
     button= Button(root, image=Preset ,borderwidth=0,command=lambda:[preset(root)], bg="#FDFCDC", border=0)

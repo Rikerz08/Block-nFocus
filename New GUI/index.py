@@ -20,7 +20,7 @@ def Warning_Start(root):
 
     #placing the bg image by using label
     label2 = Label(newwin, image= warning)
-    label2.place(x = 0, y = 0)
+    label2.place(x = -2, y = -2)
     
     #creating the Understand button
     button= Button(newwin, image=understood, command=lambda:[change(root)],borderwidth=0)
@@ -71,7 +71,7 @@ def call():
 #running the index screen
 def index(root):
     label1 = Label(root, image = bg)
-    label1.place(x = 0, y = 0)
+    label1.place(x = -2, y = -2)
 
     #Let us create a dummy button and pass the image
     button= Button(root, image=click_btn,command=lambda:[Warning_Start(root)],borderwidth=0)
