@@ -220,10 +220,10 @@ def getInput():
         print(siteValue + " is already listed")
         ErrorMsg()
     #append also a version without "www." and vice versa
-    if siteValue != "exit" and "www." in siteValue:
+    if "www." in siteValue:
         entrySiteList.append(siteValue)
         entrySiteList.append(siteValue.replace("www.",""))
-    elif siteValue != 'exit' and "www." not in siteValue:
+    elif "www." not in siteValue:
         entrySiteList.append(siteValue)
         entrySiteList.append("www." + siteValue)
     print("entry", entrySiteList)

@@ -27,7 +27,7 @@ def BrowserExitWarn():
     label2.place(x = -2, y = -2)
     
     #creating the Understand button
-    button= Button(newwin, image=Proceed, command=lambda:[delete(newwin), killBrowsers(),switch()],borderwidth=0, background="#1E1A1A")
+    button= Button(newwin, image=Proceed, command=lambda:[killBrowsers(),switch()],borderwidth=0, background="#1E1A1A")
     button.place(x = 187, y = 138)
     
     button= Button(newwin, image=ManuallyClose, command=lambda:[switch()],borderwidth=0, background="#1E1A1A")
