@@ -355,7 +355,7 @@ def Preset_Start():
     button2= Button(root, image=Delete,borderwidth=0,command=DeleteWarn, bg="#FDFCDC")
     button2.place(x = 310, y = 415)
     
-    button3= Button(root, image=remove,borderwidth=0,command=DeleteAllWarn, bg="#FDFCDC")
+    button3= Button(root, image=presetBlock,borderwidth=0,command=DeleteAllWarn, bg="#FDFCDC")
     button3.place(x = 578, y = 415)
     
     button4= Button(root, image=Back2,borderwidth=0,command=back, border=-5, background="#1E1A1A")
