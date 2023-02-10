@@ -217,6 +217,13 @@ def timeSet2(a):
     while True:
         try:
             interval = float(timeValue)
+            #convert interval to string so that it can be checked with rsplit since float
+            #doesnt have .rsplit attributes
+            strInterval = str(interval)
+            if len(strInterval.rsplit('.')[-1]) != 2:
+                print("Please enter a value with only 2 decimal places.")
+                ErrorMsg()
+                continue
             break
         except ValueError:
             ErrorMsg()
@@ -370,4 +377,4 @@ def Preset_Start():
 
 
 ######################################################################################################################################################################################
-preset()
+# preset()
