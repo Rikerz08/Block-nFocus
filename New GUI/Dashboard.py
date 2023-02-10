@@ -47,7 +47,7 @@ def dashboard():
 def Dashboard_start(root):
 
     label3 = Label(root, image= Dashboard_bg)
-    label3.place(x = 0, y = 0)
+    label3.place(x = -2, y = -2)
 
     
     button= Button(root, image=Block,borderwidth=0,command=lambda:[block(root)], bg="#FDFCDC")

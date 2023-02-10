@@ -22,7 +22,7 @@ def BrowserExitWarn():
 
     #placing the bg image by using label
     label2 = Label(newwin, image= BrowserExitWarnBg)
-    label2.place(x = 0, y = 0)
+    label2.place(x = -2, y = -2)
     
     #creating the Understand button
     button= Button(newwin, image=Proceed, command=lambda:[delete(newwin)],borderwidth=0, background="#1E1A1A")
@@ -43,7 +43,7 @@ def switchScreen():
 
 
 
-def preset():
+def write():
     global root
     root = Tk()
     root.title('Codemy.com')
@@ -123,22 +123,14 @@ def preset():
     my_frame.configure(background="#FFFBFD")
     
     my_listbox.pack(pady=0)
-    #This code is for getting the lines from the txt file and displaying them into the list box
-    global presetList
-    presetList = []
-    with open('webstores.txt', 'r') as f:
-        for line in f:
-            #splits line elements with commas and creates it into list
-            currLineList = line.split()
-            #joins all the elements of the list with comma and space
-            stringLineList = (', '.join(currLineList))
-            presetList.append(stringLineList)
-        # presetList = [line.strip() for line in f]
 
-    for item in presetList:
-        my_listbox.insert(END, item)
-    
-    Preset_Start()
+    global entrySiteList
+    global finalEntrySiteList
+    entrySiteList = []
+    finalEntrySiteList = []
+
+   
+    Write_Start()
     
     root.mainloop()
 
@@ -167,7 +159,7 @@ def DeleteWarn():
 
     #placing the bg image by using label
     label2 = Label(newwin, image= WarningDelbg)
-    label2.place(x = 0, y = 0)
+    label2.place(x = -2, y = -2)
     
     #creating the Understand button
     button= Button(newwin, image=Yes, command=lambda:[delete(newwin)],borderwidth=0, background="#1E1A1A")
@@ -195,7 +187,7 @@ def SelectWarn(a):
 
     #placing the bg image by using label
     label2 = Label(newwin, image= Selectbg)
-    label2.place(x = 0, y = 0)
+    label2.place(x = -2, y = -2)
     
     #creating the Understand button
     button= Button(newwin, image=Yes, command=lambda:[newwin.destroy(),switch()],borderwidth=0, background="#1E1A1A")
@@ -206,27 +198,121 @@ def SelectWarn(a):
     
     newwin.mainloop()
 
-def timeSet():
-    #We initialized the selection for the currentpreset here in timeSet func
-    #instead of select func, so that even before we input the time, there is already a stored value in the list
-    #this is because we notice that when we select an element, and then double click the entry on timeSet window
-    #the selection disappears thus going into the error of "if not my_listbox.curselection()"
 
-    #we initialize delIndex as 0 since it cannot be global since its initialized inside a for loop
-    delIndex = 0
-    global currentPreset
-    global currentPresetList
-    global noDupCurrentPresetList
+
+def getInput():
+    # global noDupFinalEntrySiteList
+    #we need to define global entrySiteList here so that our listbox can access it
+    #and make listbox display them
+    siteValue = str(entry1.get())
+    if len(siteValue) == 0:
+            print("Please input something on field the blank field")
+            ErrorMsg()
+            return
+    #if there is white space, validate it
+    if " " in siteValue:
+        print(siteValue + " has a space in it. Please enter a valid input.")
+        ErrorMsg()
+        return
+    #avoiding duplication of display for the current input
+    if siteValue in entrySiteList:
+        print(siteValue + " is already listed")
+        ErrorMsg()
+    #append also a version without "www." and vice versa
+    if siteValue != "exit" and "www." in siteValue:
+        entrySiteList.append(siteValue)
+        entrySiteList.append(siteValue.replace("www.",""))
+    elif siteValue != 'exit' and "www." not in siteValue:
+        entrySiteList.append(siteValue)
+        entrySiteList.append("www." + siteValue)
+    print("entry", entrySiteList)
+    
+    for item in entrySiteList.copy():
+        if item in str(finalEntrySiteList):
+            print(item + " is already displayed")
+            entrySiteList.clear()
+            ErrorMsg()
+        else: 
+            my_listbox.insert(END, item)
+            finalEntrySiteList.append(item)
+            entrySiteList.remove(item)
+
+    entrySiteList.clear()
+    print("final", finalEntrySiteList)
+    print("entry", entrySiteList, "\n-----------------------------------------")
+
+
+def ErrorMsg():
+    newwin = Toplevel(root)
+    newwin.geometry("800x200")
+    newwin.resizable(False, False)
+    
+    #making the window always pop up at the center of the screen
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+    
+    x = (screen_width / 2) - (800 / 2)
+    y = (screen_height / 2 ) - (200 / 2)
+    
+    newwin.geometry(f'800x200+{int(x)}+{int(y)}')
+
+    #placing the bg image by using label
+    label2 = Label(newwin, image= ErrorMsgBg)
+    label2.place(x = -2, y = -2)
+    
+    
+    button= Button(newwin, image=Okay, command=lambda:[newwin.destroy()],borderwidth=0, background="#1E1A1A")
+    button.place(x = 310, y = 138)
+    
+    newwin.mainloop()
+
+# def DeleteAllWarn():
+#     if len(finalEntrySiteList) == 0:
+#         ErrorMsg()
+#     newwin = Toplevel(root)
+#     newwin.geometry("800x200")
+#     newwin.resizable(False, False)
+    
+#     #making the window always pop up at the center of the screen
+#     screen_width = root.winfo_screenwidth()
+#     screen_height = root.winfo_screenheight()
+    
+#     x = (screen_width / 2) - (800 / 2)
+#     y = (screen_height / 2 ) - (200 / 2)
+    
+#     newwin.geometry(f'800x200+{int(x)}+{int(y)}')
+
+#     #placing the bg image by using label
+#     label2 = Label(newwin, image= WarningDelAllbg)
+#     label2.place(x = 0, y = 0)
+    
+#     #creating the Understand button
+#     button= Button(newwin, image=Yes, command=lambda:[newwin.destroy(),timeSet()],borderwidth=0, background="#1E1A1A")
+#     button.place(x = 187, y = 138)
+    
+#     button= Button(newwin, image=No, command=lambda:[newwin.destroy()],borderwidth=0, background="#1E1A1A")
+#     button.place(x = 430, y = 138)
+    
+#     newwin.mainloop()
+        
+def delete(a):
+	#curselection will capture the current selection in the listbox by iterating thru it
+	#then we assign the index to a variable in order for it to be deleted in webfile
     for item in my_listbox.curselection():
-        delIndex = (item+1)
-    currentPreset = linecache.getline("webstores.txt", delIndex)
-    currentPresetList = currentPreset.split()
-    noDupCurrentPresetList = list(dict.fromkeys(currentPresetList))
-    #If no item is selected, then just not run the function
-    if not my_listbox.curselection():
-        return ErrorMsg()
+        delValue = item
+    finalEntrySiteList.pop(delValue)
+
+    a.destroy()
+    my_listbox.delete(ANCHOR)
+    # my_label.config(text='')
+    print(finalEntrySiteList)
+
+
+
+def timeSet():
+    if len(finalEntrySiteList) == 0:
+        ErrorMsg()
     global timeInput
-    # a.destroy()
     newwin = Toplevel(root)
     newwin.geometry("800x200")
     newwin.resizable(False, False)
@@ -242,7 +328,7 @@ def timeSet():
 
     #placing the bg image by using label
     label2 = Label(newwin, image= timeSetBg)
-    label2.place(x = 0, y = 0)
+    label2.place(x = -2, y = -2)
     
     timeInput = Entry(newwin, font="Arial 45")
     timeInput.place(x = 180, y = 70, width=200, height=50)
@@ -266,7 +352,7 @@ def timeSet2(a):
             #convert interval to string so that it can be checked with rsplit since float
             #doesnt have .rsplit attributes
             strInterval = str(interval)
-            if len(strInterval.rsplit('.')[-1]) != 2:
+            if len(strInterval.rsplit('.')[-1]) > 2:
                 print("Please enter a value with only 2 decimal places.")
                 ErrorMsg()
                 continue
@@ -278,82 +364,6 @@ def timeSet2(a):
     SelectWarn(a)
     # from LogicFunctions import timeSetLogic
     # timeSetLogic(timeInput)
-
-def ErrorMsg():
-    newwin = Toplevel(root)
-    newwin.geometry("800x200")
-    newwin.resizable(False, False)
-    
-    #making the window always pop up at the center of the screen
-    screen_width = root.winfo_screenwidth()
-    screen_height = root.winfo_screenheight()
-    
-    x = (screen_width / 2) - (800 / 2)
-    y = (screen_height / 2 ) - (200 / 2)
-    
-    newwin.geometry(f'800x200+{int(x)}+{int(y)}')
-
-    #placing the bg image by using label
-    label2 = Label(newwin, image= ErrorMsgBg)
-    label2.place(x = 0, y = 0)
-    
-    
-    button= Button(newwin, image=Okay, command=lambda:[newwin.destroy()],borderwidth=0, background="#1E1A1A")
-    button.place(x = 310, y = 138)
-    
-    newwin.mainloop()
-
-def DeleteAllWarn():
-    newwin = Toplevel(root)
-    newwin.geometry("800x200")
-    newwin.resizable(False, False)
-    
-    #making the window always pop up at the center of the screen
-    screen_width = root.winfo_screenwidth()
-    screen_height = root.winfo_screenheight()
-    
-    x = (screen_width / 2) - (800 / 2)
-    y = (screen_height / 2 ) - (200 / 2)
-    
-    newwin.geometry(f'800x200+{int(x)}+{int(y)}')
-
-    #placing the bg image by using label
-    label2 = Label(newwin, image= WarningDelAllbg)
-    label2.place(x = 0, y = 0)
-    
-    #creating the Understand button
-    button= Button(newwin, image=Yes, command=lambda:[delete_all(newwin)],borderwidth=0, background="#1E1A1A")
-    button.place(x = 187, y = 138)
-    
-    button= Button(newwin, image=No, command=lambda:[newwin.destroy()],borderwidth=0, background="#1E1A1A")
-    button.place(x = 430, y = 138)
-    
-    newwin.mainloop()
-        
-def delete(a):
-	#curselection will capture the current selection in the listbox by iterating thru it
-	#then we assign the index to a variable in order for it to be deleted in webfile
-
-    for item in my_listbox.curselection():
-        delIndex = (item+1)
-
-    lines = []
-    # read file
-    with open("webstores.txt", 'r') as fp:
-        # read an store all lines into list
-        lines = fp.readlines()
-    # Write file
-    with open("webstores.txt", 'w') as fp:
-        # iterate each line
-        for number, line in enumerate(lines):
-            # delete line 5 and 8. or pass any Nth line you want to remove
-            # note list index starts from 0
-            if number not in [delIndex-1]:
-                fp.write(line)
-    a.destroy()
-    my_listbox.delete(ANCHOR)
-    # my_label.config(text='')
-
 
 def switch():
     from OngoingBlock import ongoingBlock
@@ -372,34 +382,38 @@ def select():
     global unblock_time
     # a.destroy()
     from LogicFunctions import checkTime, writeToHost
-    writeToHost(noDupCurrentPresetList)
+    writeToHost(finalEntrySiteList)
     print("WRITTEN TO HOST")
     current_time = datetime.datetime.now()
     timeDifference = current_time - start_time
     unblock_time += timeDifference
-    checkTime(current_time, unblock_time, currentPresetList)
+    checkTime(current_time, unblock_time, finalEntrySiteList)
     
     
-def delete_all(a):
-    with open('webstores.txt', 'w') as f:
-        f.truncate(0)
-    a.destroy()
-    my_listbox.delete(0, END)
+# def delete_all(a):
+#     with open('webstores.txt', 'w') as f:
+#         f.truncate(0)
+#     a.destroy()
+#     my_listbox.delete(0, END)
+
+# def blockWebsites():
+#     from Preset import timeSet, timeSet2, select
+#     timeSet()
   
-def Preset_Start():
-   
+def Write_Start():
     # my_button = Button(root, text="Delete", command=delete)
     # my_button.pack(pady=10)
+    global entry1
     entry1 = Entry(root, width=50, font=("Helvetica", 20))
     entry1.place(x = 22, y = 367)
     
-    button1= Button(root, image=Add,borderwidth=0, bg="#FDFCDC")
+    button1= Button(root, image=Add,borderwidth=0,command=getInput, bg="#FDFCDC")
     button1.place(x = 55, y = 415)
     
     button2= Button(root, image=Delete,borderwidth=0,command=DeleteWarn, bg="#FDFCDC")
     button2.place(x = 310, y = 415)
     
-    button3= Button(root, image=presetBlock,borderwidth=0,command=BrowserExitWarn, bg="#FDFCDC")
+    button3= Button(root, image=presetBlock,borderwidth=0,command=timeSet, bg="#FDFCDC")
     button3.place(x = 578, y = 415)
     
     button4= Button(root, image=Back2,borderwidth=0,command=back, border=-5, background="#1E1A1A")
@@ -426,4 +440,4 @@ def Preset_Start():
 
 
 ######################################################################################################################################################################################
-preset()
+write()

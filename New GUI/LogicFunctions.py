@@ -65,13 +65,16 @@ def unBlock(siteList):
                 f.write(line)
         #cuts of all lines that were not written in line 72
         f.truncate()
+
     
 def checkTime(currTime, doneTime, currList):
     
     from ForRootinit import root
     from OngoingBlock import UnblockedMsg, ongoingBlock
     print(doneTime)
-    # while True:
+    # we have to store current list to a text so that we can pull it any time regardless of var scope.
+    with open('currListCache.txt', 'w') as f:
+        f.write(" ".join(currList))
     currTime = datetime.datetime.now()
     if currTime < doneTime:
         print("BLOCK TIME STILL ON.")
@@ -79,6 +82,8 @@ def checkTime(currTime, doneTime, currList):
     else:
         print("UNBLOCKED ALL SITES")
         unBlock(currList)
+        with open('currListCache.txt', 'r+') as f:
+            f.truncate(0)
         UnblockedMsg()
         root.destroy()
         return
