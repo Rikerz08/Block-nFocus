@@ -76,7 +76,7 @@ def preset():
     my_frame.place(x = 22, y = 100)
     my_frame.configure(background="#FFFBFD")
     
-    my_listbox.pack(pady=15)
+    my_listbox.pack(pady=0)
     #This code is for getting the lines from the txt file and displaying them into the list box
     global presetList
     presetList = []
