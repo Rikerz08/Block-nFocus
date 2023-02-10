@@ -121,7 +121,7 @@ def DeleteWarn():
 
     #placing the bg image by using label
     label2 = Label(newwin, image= WarningDelbg)
-    label2.place(x = 0, y = 0)
+    label2.place(x = -2, y = -2)
     
     #creating the Understand button
     button= Button(newwin, image=Yes, command=lambda:[delete(newwin)],borderwidth=0, background="#1E1A1A")
@@ -149,7 +149,7 @@ def SelectWarn(a):
 
     #placing the bg image by using label
     label2 = Label(newwin, image= Selectbg)
-    label2.place(x = 0, y = 0)
+    label2.place(x = -2, y = -2)
     
     #creating the Understand button
     button= Button(newwin, image=Yes, command=lambda:[newwin.destroy(),switch()],borderwidth=0, background="#1E1A1A")
@@ -196,7 +196,7 @@ def timeSet():
 
     #placing the bg image by using label
     label2 = Label(newwin, image= timeSetBg)
-    label2.place(x = 0, y = 0)
+    label2.place(x = -2, y = -2)
     
     timeInput = Entry(newwin, font="Arial 45")
     timeInput.place(x = 180, y = 70, width=200, height=50)
@@ -249,7 +249,7 @@ def ErrorMsg():
 
     #placing the bg image by using label
     label2 = Label(newwin, image= ErrorMsgBg)
-    label2.place(x = 0, y = 0)
+    label2.place(x = -2, y = -2)
     
     
     button= Button(newwin, image=Okay, command=lambda:[newwin.destroy()],borderwidth=0, background="#1E1A1A")
@@ -273,7 +273,7 @@ def DeleteAllWarn():
 
     #placing the bg image by using label
     label2 = Label(newwin, image= WarningDelAllbg)
-    label2.place(x = 0, y = 0)
+    label2.place(x = -2, y = -2)
     
     #creating the Understand button
     button= Button(newwin, image=Yes, command=lambda:[delete_all(newwin)],borderwidth=0, background="#1E1A1A")

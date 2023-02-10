@@ -103,7 +103,7 @@ def UnblockedMsg():
 
     #placing the bg image by using label
     label2 = Label(newwin, image= unblockedbg)
-    label2.place(x = 0, y = 0)
+    label2.place(x = -2, y = -2)
     
     
     button= Button(newwin, image=proceed, command=lambda:[root.destroy(),dashboard()],borderwidth=0, background="#1E1A1A")

@@ -6,9 +6,6 @@ import datetime
 #this is just to make the code run long enough to reach the asking of user input for the minutes
 unblock_time = datetime.datetime.now() + datetime.timedelta(minutes=525600)
 
-<<<<<<< HEAD
-def write():
-=======
 def BrowserExitWarn():
     newwin = Toplevel(root)
     newwin.geometry("800x200")
@@ -25,7 +22,7 @@ def BrowserExitWarn():
 
     #placing the bg image by using label
     label2 = Label(newwin, image= BrowserExitWarnBg)
-    label2.place(x = 0, y = 0)
+    label2.place(x = -2, y = -2)
     
     #creating the Understand button
     button= Button(newwin, image=Proceed, command=lambda:[delete(newwin)],borderwidth=0, background="#1E1A1A")
@@ -46,8 +43,7 @@ def switchScreen():
 
 
 
-def preset():
->>>>>>> 74429102f1dbf13fde61de5c71048bbb0bdec82c
+def write():
     global root
     root = Tk()
     root.title('Codemy.com')
@@ -78,9 +74,6 @@ def preset():
     global Okay
     global Add
     global remove
-<<<<<<< HEAD
-    
-=======
     global BrowserExitWarnBg
     global Proceed
     global ManuallyClose
@@ -88,7 +81,6 @@ def preset():
     ManuallyClose = PhotoImage(file='images/ManuallyClose.png')
     Proceed = PhotoImage(file='images/Proceed.png')
     BrowserExitWarnBg = PhotoImage(file='images/BrowserExitWarnBg.png')
->>>>>>> 74429102f1dbf13fde61de5c71048bbb0bdec82c
     remove = PhotoImage(file='images/Remove.png')
     write_bg = PhotoImage(file='images/WriteBg.png')
     Add = PhotoImage(file='images/Add.png')
@@ -167,7 +159,7 @@ def DeleteWarn():
 
     #placing the bg image by using label
     label2 = Label(newwin, image= WarningDelbg)
-    label2.place(x = 0, y = 0)
+    label2.place(x = -2, y = -2)
     
     #creating the Understand button
     button= Button(newwin, image=Yes, command=lambda:[delete(newwin)],borderwidth=0, background="#1E1A1A")
@@ -195,7 +187,7 @@ def SelectWarn(a):
 
     #placing the bg image by using label
     label2 = Label(newwin, image= Selectbg)
-    label2.place(x = 0, y = 0)
+    label2.place(x = -2, y = -2)
     
     #creating the Understand button
     button= Button(newwin, image=Yes, command=lambda:[newwin.destroy(),switch()],borderwidth=0, background="#1E1A1A")
@@ -266,7 +258,7 @@ def ErrorMsg():
 
     #placing the bg image by using label
     label2 = Label(newwin, image= ErrorMsgBg)
-    label2.place(x = 0, y = 0)
+    label2.place(x = -2, y = -2)
     
     
     button= Button(newwin, image=Okay, command=lambda:[newwin.destroy()],borderwidth=0, background="#1E1A1A")
@@ -274,34 +266,34 @@ def ErrorMsg():
     
     newwin.mainloop()
 
-def DeleteAllWarn():
-    if len(finalEntrySiteList) == 0:
-        ErrorMsg()
-    newwin = Toplevel(root)
-    newwin.geometry("800x200")
-    newwin.resizable(False, False)
+# def DeleteAllWarn():
+#     if len(finalEntrySiteList) == 0:
+#         ErrorMsg()
+#     newwin = Toplevel(root)
+#     newwin.geometry("800x200")
+#     newwin.resizable(False, False)
     
-    #making the window always pop up at the center of the screen
-    screen_width = root.winfo_screenwidth()
-    screen_height = root.winfo_screenheight()
+#     #making the window always pop up at the center of the screen
+#     screen_width = root.winfo_screenwidth()
+#     screen_height = root.winfo_screenheight()
     
-    x = (screen_width / 2) - (800 / 2)
-    y = (screen_height / 2 ) - (200 / 2)
+#     x = (screen_width / 2) - (800 / 2)
+#     y = (screen_height / 2 ) - (200 / 2)
     
-    newwin.geometry(f'800x200+{int(x)}+{int(y)}')
+#     newwin.geometry(f'800x200+{int(x)}+{int(y)}')
 
-    #placing the bg image by using label
-    label2 = Label(newwin, image= WarningDelAllbg)
-    label2.place(x = 0, y = 0)
+#     #placing the bg image by using label
+#     label2 = Label(newwin, image= WarningDelAllbg)
+#     label2.place(x = 0, y = 0)
     
-    #creating the Understand button
-    button= Button(newwin, image=Yes, command=lambda:[newwin.destroy(),timeSet()],borderwidth=0, background="#1E1A1A")
-    button.place(x = 187, y = 138)
+#     #creating the Understand button
+#     button= Button(newwin, image=Yes, command=lambda:[newwin.destroy(),timeSet()],borderwidth=0, background="#1E1A1A")
+#     button.place(x = 187, y = 138)
     
-    button= Button(newwin, image=No, command=lambda:[newwin.destroy()],borderwidth=0, background="#1E1A1A")
-    button.place(x = 430, y = 138)
+#     button= Button(newwin, image=No, command=lambda:[newwin.destroy()],borderwidth=0, background="#1E1A1A")
+#     button.place(x = 430, y = 138)
     
-    newwin.mainloop()
+#     newwin.mainloop()
         
 def delete(a):
 	#curselection will capture the current selection in the listbox by iterating thru it
@@ -318,6 +310,8 @@ def delete(a):
 
 
 def timeSet():
+    if len(finalEntrySiteList) == 0:
+        ErrorMsg()
     global timeInput
     newwin = Toplevel(root)
     newwin.geometry("800x200")
@@ -334,7 +328,7 @@ def timeSet():
 
     #placing the bg image by using label
     label2 = Label(newwin, image= timeSetBg)
-    label2.place(x = 0, y = 0)
+    label2.place(x = -2, y = -2)
     
     timeInput = Entry(newwin, font="Arial 45")
     timeInput.place(x = 180, y = 70, width=200, height=50)
@@ -407,24 +401,19 @@ def select():
 #     timeSet()
   
 def Write_Start():
-   
     # my_button = Button(root, text="Delete", command=delete)
     # my_button.pack(pady=10)
     global entry1
     entry1 = Entry(root, width=50, font=("Helvetica", 20))
     entry1.place(x = 22, y = 367)
     
-<<<<<<< HEAD
     button1= Button(root, image=Add,borderwidth=0,command=getInput, bg="#FDFCDC")
-=======
-    button1= Button(root, image=Add,borderwidth=0, bg="#FDFCDC")
->>>>>>> 74429102f1dbf13fde61de5c71048bbb0bdec82c
     button1.place(x = 55, y = 415)
     
     button2= Button(root, image=Delete,borderwidth=0,command=DeleteWarn, bg="#FDFCDC")
     button2.place(x = 310, y = 415)
     
-    button3= Button(root, image=presetBlock,borderwidth=0,command=BrowserExitWarn, bg="#FDFCDC")
+    button3= Button(root, image=presetBlock,borderwidth=0,command=timeSet, bg="#FDFCDC")
     button3.place(x = 578, y = 415)
     
     button4= Button(root, image=Back2,borderwidth=0,command=back, border=-5, background="#1E1A1A")
