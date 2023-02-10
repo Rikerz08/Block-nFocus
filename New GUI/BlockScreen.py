@@ -32,7 +32,7 @@ def blockScreen():
     root.geometry("800x500")
     root.resizable(False, False)
     root.title("Block'nFocus")
-    
+    root.overrideredirect(True)
     #making the window always pop up at the center of the screen
     screen_width = root.winfo_screenwidth()
     screen_height = root.winfo_screenheight()
