@@ -59,14 +59,20 @@ def preset():
     # Create frame and scrollbar
     my_frame = Frame(root)
     my_scrollbar = Scrollbar(my_frame, orient=VERTICAL)
+    
+    my_scrollbarX = Scrollbar(my_frame, orient= HORIZONTAL)
+    
 
     # Listbox!
     # SINGLE, BROWSE, MULTIPLE, EXTENDED
     global my_listbox
-    my_listbox = Listbox(my_frame, width=53,height=8, yscrollcommand=my_scrollbar.set, font=('Times', 20), selectmode=SINGLE, borderwidth=0, activestyle="none")
+    my_listbox = Listbox(my_frame, width=53,height=8, yscrollcommand=my_scrollbar.set,xscrollcommand=my_scrollbarX.set, font=('Times', 20), selectmode=SINGLE, borderwidth=0, activestyle="none")
     #configure scrollbar
     my_scrollbar.config(command=my_listbox.yview)
     my_scrollbar.pack(side=RIGHT, fill=Y)
+    my_scrollbarX.pack(side= BOTTOM, fill= X)
+    my_scrollbarX.config(command=my_listbox.xview)
+    
     my_frame.place(x = 22, y = 100)
     my_frame.configure(background="#FFFBFD")
     

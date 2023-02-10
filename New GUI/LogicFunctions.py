@@ -149,7 +149,7 @@ def checkTime(currTime, doneTime, currList):
         print("UNBLOCKED ALL SITES")
         unBlock(currList)
         UnblockedMsg()
-        root.quit()
+        root.destroy()
         return
     # If you want to update the current time in a loop and still 
     # be able to use a GUI, you can use the after method in Tkinter. 

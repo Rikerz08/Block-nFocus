@@ -85,10 +85,12 @@ def OngoingblockStart():
 
 # doneblock
 def UnblockedMsg():
+    from Dashboard import dashboard
     root.withdraw()
     newwin = Toplevel(root)
     newwin.geometry("800x200")
     newwin.resizable(False, False)
+    newwin.overrideredirect(True)
     
     #making the window always pop up at the center of the screen
     screen_width = root.winfo_screenwidth()
@@ -104,7 +106,7 @@ def UnblockedMsg():
     label2.place(x = 0, y = 0)
     
     
-    button= Button(newwin, image=proceed, command=lambda:[root.destroy()],borderwidth=0, background="#1E1A1A")
+    button= Button(newwin, image=proceed, command=lambda:[root.destroy(),dashboard()],borderwidth=0, background="#1E1A1A")
     button.place(x = 310, y = 138)
     
     newwin.mainloop()
