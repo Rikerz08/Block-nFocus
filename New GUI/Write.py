@@ -50,7 +50,7 @@ def write():
     root.title('Codemy.com')
     root.geometry("800x500")
     root.resizable(False, False)
-    
+    root.overrideredirect(True)
     screen_width = root.winfo_screenwidth()
     screen_height = root.winfo_screenheight()
 
@@ -241,7 +241,7 @@ def getInput():
     entrySiteList.clear()
     print("final", finalEntrySiteList)
     print("entry", entrySiteList, "\n-----------------------------------------")
-
+    clear_text()
 
 def ErrorMsg():
     newwin = Toplevel(root)
@@ -406,7 +406,10 @@ def select():
 # def blockWebsites():
 #     from Preset import timeSet, timeSet2, select
 #     timeSet()
-  
+
+def clear_text():
+       entry1.delete(0, END)
+
 def Write_Start():
     # my_button = Button(root, text="Delete", command=delete)
     # my_button.pack(pady=10)

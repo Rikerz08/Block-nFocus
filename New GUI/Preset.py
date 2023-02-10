@@ -41,7 +41,7 @@ def preset():
     root.title('Codemy.com')
     root.geometry("800x500")
     root.resizable(False, False)
-    
+    root.overrideredirect(True)
     screen_width = root.winfo_screenwidth()
     screen_height = root.winfo_screenheight()
 
