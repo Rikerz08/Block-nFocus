@@ -23,7 +23,7 @@ def ForcedUnblockWarn(root):
     
     #creating the Understand button
     button= Button(newwin, image=yes, command=lambda:[change(root)],borderwidth=0)
-    button.grid(column=1, row=1, padx=318, pady=142)
+    button.grid(column=1, row=1, padx=305, pady=142)
     
     newwin.mainloop()
 

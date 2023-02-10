@@ -1,6 +1,7 @@
 import datetime
 import time
 import os
+import shutil
 # hosts path for windows (uncomment the code according to your system)
 hostsPath = "C:\Windows\System32\drivers\etc\hosts"
 
@@ -19,56 +20,6 @@ unblock_time = datetime.datetime.now() + datetime.timedelta(minutes=525600)
 
 #This is just a variable to make sure that the function of inputting a list again does not go back while waiting for time to unblock
 doneInputting = False;
-
-# def timeSetLogic(userInput):
-#     from Preset import ErrorMsg, select
-#     global interval
-#     global start_time
-#     global unblock_time
-#         #ask user for time interval in minutes to block the websites 
-#     while True:
-#         try:
-#             interval = float(userInput.get())
-#             print("IT READ THE CODE")
-#             # select()
-#             break
-#         except ValueError:
-#             ErrorMsg()
-#             # print("ERROR")    
-
-#     #initialization of start and end time are done outside of funtion so that their values will not be altered in each sleep iteration
-#     start_time = datetime.datetime.now()
-#     unblock_time = start_time + datetime.timedelta(minutes=interval)      
-
-#     print("Proceeding will exit all browsers. Unsaved progress will be lost.")
-#     killDecision = input("Do you wish to proceed or exit browsers manually? (Y/N) ")
-
-#     if killDecision.upper() == "Y":
-#         os.system("taskkill /im firefox.exe /f")
-#         os.system("taskkill /im chrome.exe /f")
-#         os.system("taskkill /im opera.exe /f")
-#         os.system("taskkill /im msedge.exe /f") 
-#         os.system("taskkill /im brave.exe /f")
-#     #upon the very moment of killing the browsers, we need a new current time var to be subtracted by the start time var
-#     #and we need to add it to the unblock time var to make up for the time that was taken while the user was still inputting data
-#     inputTime = datetime.datetime.now() - start_time
-#     #we need to update unblock time to make up for the time taken by user while inputting
-#     unblock_time += inputTime
-
-# def timeLogicNew(userInput): 
-#     # from Preset import ErrorMsg
-#     global unblock_time
-#     # a.destroy()
-#     while True:
-#         try:
-#             interval = float(userInput.get())
-#             break
-#         except ValueError:
-#             # ErrorMsg()
-#             print("HELLO!")
-#     start_time = datetime.datetime.now()
-#     unblock_time = start_time + datetime.timedelta(minutes=interval)
-#     # print("new unblock time:", unblock_time)
 
 def inputSites(siteList):
     global toBlock
@@ -114,27 +65,6 @@ def unBlock(siteList):
                 f.write(line)
         #cuts of all lines that were not written in line 72
         f.truncate()
-
-
-# def checkTime(currTime, doneTime, currList, gui):
-#     print(doneTime)
-#     # while True:
-#     currTime = datetime.datetime.now()
-#     if currTime < doneTime:
-#         print("BLOCK TIME STILL ON.")
-#         # continue
-#     else:
-#         print("UNBLOCKED ALL SITES")
-#         unBlock(currList)
-#         return
-#     # If you want to update the current time in a loop and still 
-#     # be able to use a GUI, you can use the after method in Tkinter. 
-#     # The after method allows you to schedule a function to be executed after a specified number of milliseconds.
-#     # The update_time function is defined to get the current time using the datetime module and update the text of the label. 
-#     # The root.after method is used to schedule the update_time function to be executed every 1000 milliseconds (1 second), allowing the GUI to update 
-#     # the current time in real-time without blocking the GUI. 
-#     # The root.mainloop method is used to start the Tkinter event loop and keep the GUI running until it is closed by the user.
-#     gui.after(10000, checkTime, currTime, doneTime, currList, gui)
     
 def checkTime(currTime, doneTime, currList):
     from ForRootinit import root
@@ -161,3 +91,23 @@ def checkTime(currTime, doneTime, currList):
     root.after(10000, checkTime, currTime, doneTime, currList)
     #this just bruteforcing it :(
     root.withdraw()
+
+def copyHosts(): 
+    #path to be checked for copy
+    path = 'hostscopy/hostscopy.txt'
+    isExist = os.path.exists(path)
+    print(isExist)
+
+    #source file of host to be copied from
+    src = hostsPath
+    dest = path
+    if isExist:
+        print("Your host copy already exists, you already have a backup.")
+    else:
+        shutil.copyfile(src,dest)
+        print("COPY COPIED")
+
+def killBrowsers():
+    browserList = ["chrome.exe", "firefox.exe", "opera.exe", "msedge.exe", "brave.exe"]
+    for browser in browserList:
+            os.system("taskkill /im " + browser + " /f")
