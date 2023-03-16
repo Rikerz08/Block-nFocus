@@ -3,15 +3,16 @@ from PIL import Image
 from constants import *
 from prompts import *
 
-label1 = tk.Label(mainFrame, image = bg)
-label1.place(x = -2, y = -2)
+def index() :
+    label1 = tk.Label(mainFrame, image = bg)
+    label1.place(x = -2, y = -2)
 
-#Let us create a dummy button and pass the image
-button= tk.Button(mainFrame, image=click_btn,command=lambda:[Warning_Start()],borderwidth=0)
-# button.grid(column=1, row=1, padx=460, pady=170)
-button.place(x = 460, y = 170)
+    #Let us create a dummy button and pass the image
+    button= tk.Button(mainFrame, image=click_btn,command=lambda:[Warning_Start()],borderwidth=0)
+    # button.grid(column=1, row=1, padx=460, pady=170)
+    button.place(x = 460, y = 170)
     
-    
+index()
 root.mainloop()
 
 

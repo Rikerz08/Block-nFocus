@@ -1,4 +1,4 @@
-from Dashboard import Dashboard_start
+from dashboard import Dashboard_start
 
 #switch window from beginning warnprompt to dashboard while copying host file
 def change(newwin):

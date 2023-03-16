@@ -5,12 +5,12 @@ from tkinter.font import Font
 
 
 def changeToDash(root):
-    from Dashboard import dashboard
+    from dashboard import dashboard
     root.destroy()
     dashboard()
 
 def UnblockedMsg():
-    from Dashboard import dashboard
+    from dashboard import dashboard
     root.withdraw()
     newwin = Toplevel(root)
     newwin.geometry("800x200")

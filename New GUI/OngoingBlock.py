@@ -86,7 +86,7 @@ def OngoingblockStart():
 # doneblock
 def UnblockedMsg():
     # from Questions import Quiz
-    from Dashboard import dashboard
+    from dashboard import dashboard
     root.destroy()
     newwin = Toplevel(root)
     newwin.geometry("800x200")

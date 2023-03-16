@@ -10,7 +10,7 @@ def change(root):
     Quiz()
 
 def back(root):
-    from Dashboard import dashboard
+    from dashboard import dashboard
     root.destroy()
     dashboard()
 
