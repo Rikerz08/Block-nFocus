@@ -393,10 +393,10 @@ def select():
     global timeDifference
     global unblock_time
     # a.destroy()
-    from LogicFunctions import checkTime, writeToHost
+    from LogicFunctions import checkTime, writeToHost, writeToBoolCache
     writeToHost(finalEntrySiteList)
     print("WRITTEN TO HOST")
-    print("WRITTEN TO HOST")
+    writeToBoolCache()
     with open ("webstores.txt", "a+") as f:
         f.seek(0)
         f.writelines(' '.join(finalEntrySiteList))
@@ -405,7 +405,6 @@ def select():
     timeDifference = current_time - start_time
     unblock_time += timeDifference
     checkTime(current_time, unblock_time, finalEntrySiteList)
-    
     
 # def delete_all(a):
 #     with open('webstores.txt', 'w') as f:
@@ -460,4 +459,4 @@ def Write_Start():
 
 
 ######################################################################################################################################################################################
-write()
+# write()

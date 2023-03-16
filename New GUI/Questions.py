@@ -169,7 +169,7 @@ class QuizStart:
 
     def display_result(self):
         from LogicFunctions import unBlock
-        import datetime
+        # import datetime
         global currLineList
         score = int(self.correct / len(q) * 100)
         result = "Score: " + str(score) + "%"
@@ -182,9 +182,13 @@ class QuizStart:
         if score < 70:
             UnblockFailed()
         else:
-            with open("currListCache.txt", "r") as f:
+            with open("./cacheApproach/currListCache.txt", "r") as f:
                 for line in f:
                     currLineList = line.split()
+            with open("./cacheApproach/boolValCache.txt", "w") as f:
+                f.truncate(0)
+                #this is for the boolean that stops the checktime func when quiz is passed
+                f.write("True")
             unBlock(currLineList)
             # checkTime(currentTime,negativeTime,currLineList)
             UnblockedMsg()

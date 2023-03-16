@@ -65,25 +65,51 @@ def unBlock(siteList):
                 f.write(line)
         #cuts of all lines that were not written in line 72
         f.truncate()
+    #truncating of cache content
+    with open(currListCacheDir, 'r+') as f:
+        f.truncate(0)
 
-    
+
+
+def writeToBoolCache():
+    global boolValCacheDir
+    boolValCacheDir = "./cacheApproach/boolValCache.txt"
+    with open(boolValCacheDir, 'w') as f:
+        f.write("False")
+
+
 def checkTime(currTime, doneTime, currList):
-    
+    global isExit
+    global currListCacheDir
     from ForRootinit import root
     from OngoingBlock import UnblockedMsg
     print(doneTime)
+
+    with open(boolValCacheDir, 'r') as f:
+        for line in f:
+            isExit = str(line)
+    currListCacheDir = "./cacheApproach/currListCache.txt"
     # we have to store current list to a text so that we can pull it any time regardless of var scope.
-    with open('currListCache.txt', 'w') as f:
+    with open(currListCacheDir, 'w') as f:
         f.write(" ".join(currList))
     currTime = datetime.datetime.now()
-    if currTime < doneTime:
+
+    if isExit == "True":
+        print("UNBLOCKED ALL SITES")
+        with open(boolValCacheDir, 'r+') as f:
+            f.truncate(0)
+        root.destroy()
+        return
+    if currTime < doneTime and isExit != "True":
         print("BLOCK TIME STILL ON.")
         # continue
     else:
         print("UNBLOCKED ALL SITES")
-        unBlock(currList)
-        with open('currListCache.txt', 'r+') as f:
+        with open(boolValCacheDir, 'r+') as f:
             f.truncate(0)
+        unBlock(currList)
+        # with open(currListCacheDir, 'r+') as f:
+        #     f.truncate(0)
         UnblockedMsg()
         root.destroy()
         return

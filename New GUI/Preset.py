@@ -361,14 +361,14 @@ def select():
     global timeDifference
     global unblock_time
     # a.destroy()
-    from LogicFunctions import checkTime, writeToHost
+    from LogicFunctions import checkTime, writeToHost, writeToBoolCache
     writeToHost(noDupCurrentPresetList)
     print("WRITTEN TO HOST")
+    writeToBoolCache()
     current_time = datetime.datetime.now()
     timeDifference = current_time - start_time
     unblock_time += timeDifference
     checkTime(current_time, unblock_time, currentPresetList)
-    
     
 def delete_all(a):
     with open('webstores.txt', 'w') as f:
